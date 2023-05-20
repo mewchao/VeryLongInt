@@ -1,3 +1,9 @@
 # ninja log v5
-3	357	7057722383862713	CMakeFiles/untitled.dir/main.cpp.obj	c48739ca866f8a11
-357	449	7057722384764934	untitled.exe	6f7a6576172acff1
+3	524	7062836193781342	CMakeFiles/untitled.dir/main.cpp.obj	f9fd2276fe21cd17
+525	639	7062836194891341	untitled.exe	6f7a6576172acff1
+0	47	7062839572722914	CMakeFiles/VeryLongInt.dir/VeryLongInt.cpp.obj	9cb5414190b66930
+3	510	7062839577348487	CMakeFiles/VeryLongInt.dir/main.cpp.obj	2f0ec021798bfdfe
+513	618	7062839578404378	VeryLongInt.exe	9e6d5948279aaf60
+5	511	7062843650014013	CMakeFiles/VeryLongInt.dir/main.cpp.obj	2f0ec021798bfdfe
+2	618	7062843651073997	CMakeFiles/VeryLongInt.dir/VeryLongInt.cpp.obj	9cb5414190b66930
+618	754	7062843652420134	VeryLongInt.exe	9e6d5948279aaf60
