@@ -3,10 +3,28 @@
 //
 #include "VeryLongInt.h"
 
-//å­—ç¬¦ä¸²æ„é€ 
+//×Ö·û´®¹¹Ôì
 VeryLongInt::VeryLongInt(string str) {
-//"123456" size=6 -->654321
-//"-123456" size=6 -->654321
+    //Ê®Áù½øÖÆ»òÕß°Ë½øÖÆµÄ×Ö·û´®->×ª»¯ÎªÊ®½øÖÆµÄ³¤ÕûĞÍ
+    if(str[0]=='0'){
+        long int ;
+        //Ê®Áù½øÖÆ×Ö·û´®
+        if(str[1]=='x'||str[1]=='X'){
+
+
+
+        }
+        //°Ë½øÖÆ×Ö·û´®
+        else{
+
+
+
+
+
+
+        }
+    }
+    //Ê®½øÖÆ×Ö·û´®
     if (str[0]=='-') {
         negative=true;
         for (int i=str.size()-1; i>=1; i--) {
@@ -21,14 +39,28 @@ VeryLongInt::VeryLongInt(string str) {
 
 }
 
+//³¤ÕûĞÎ¹¹Ôì
+VeryLongInt::VeryLongInt(long int other) {
+    if (other<0) {
+        negative=true;
+        other=-other;
+    } else {
+        negative=false;
+    }
+    while (other) {
+        digits.push_back(other%10);
+        other/=10;
+    }
+}
 
-//ç”¨ä¸€ä¸ªå‘é‡å’Œæ­£è´Ÿå·æ¥æ„é€ 
+
+//ÓÃÒ»¸öÏòÁ¿ºÍÕı¸ººÅÀ´¹¹Ôì
 VeryLongInt::VeryLongInt(vector<int> v, bool negative) {
     this->digits=v;
     this->negative=negative;
 }
 
-//æ‰“å°
+//´òÓ¡
 void VeryLongInt::print() {
     if (digits.empty()) {
         cout<<"0"<<endl;
@@ -43,10 +75,10 @@ void VeryLongInt::print() {
     cout<<endl;
 }
 
-// å–ç›¸åæ•°
+// È¡Ïà·´Êı
 VeryLongInt VeryLongInt::operator-() const {
     VeryLongInt redis(*this);
-    //æ”¹å˜æ­£è´Ÿ
+    //¸Ä±äÕı¸º
     redis.negative=!negative;
     return redis;
 }
@@ -57,10 +89,10 @@ VeryLongInt VeryLongInt::Negative() const {
 
 
 VeryLongInt VeryLongInt::operator+(const VeryLongInt &other) const {
-    //ä¸¤ä¸ªæ•°å­—çš„æ­£è´Ÿæ€§ç›¸åŒï¼Œç›´æ¥ç›¸åŠ 
+    //Á½¸öÊı×ÖµÄÕı¸ºĞÔÏàÍ¬£¬Ö±½ÓÏà¼Ó
     if (negative==other.negative) {
-        int carry=0;  //è¿›ä½
-        vector<int> result;  //å­˜æ”¾ç»“æœ
+        int carry=0;  //½øÎ»
+        vector<int> result;  //´æ·Å½á¹û
         //123456->654321
         //789->987
         for (int i=0; i<max(digits.size(), other.digits.size()); i++) {
@@ -74,15 +106,15 @@ VeryLongInt VeryLongInt::operator+(const VeryLongInt &other) const {
             result.push_back(sum%10);
             carry=sum/10;
         }
-        //è¡¥ä¸Šæœ€åä¸€æ¬¡çš„è¿›ä½
+        //²¹ÉÏ×îºóÒ»´ÎµÄ½øÎ»
         if (carry!=0) {
             result.push_back(carry);
         }
 
         return VeryLongInt(result, negative);
     } else {
-        // ä¸¤ä¸ªæ•°å­—çš„æ­£è´Ÿæ€§ä¸åŒï¼Œè°ƒç”¨å‡æ³•
-        //æ­£+è´Ÿæ—¶ï¼Œæ­£-è´Ÿæ•°ç›¸åæ•°->ç»“æœä¸ºæ­£æ•°-æ­£æ•°    è´Ÿ+æ­£æ—¶ï¼Œè´Ÿ-æ­£çš„ç›¸åæ•°->ç»“æœä¸ºè´Ÿ-è´Ÿ
+        // Á½¸öÊı×ÖµÄÕı¸ºĞÔ²»Í¬£¬µ÷ÓÃ¼õ·¨
+        //Õı+¸ºÊ±£¬Õı-¸ºÊıÏà·´Êı->½á¹ûÎªÕıÊı-ÕıÊı    ¸º+ÕıÊ±£¬¸º-ÕıµÄÏà·´Êı->½á¹ûÎª¸º-¸º
         VeryLongInt neg_other=other;
         neg_other.negative=!neg_other.negative;
         return *this-neg_other;
@@ -90,9 +122,9 @@ VeryLongInt VeryLongInt::operator+(const VeryLongInt &other) const {
 }
 
 VeryLongInt VeryLongInt::operator-(const VeryLongInt &other) const {
-    // ä¸¤ä¸ªæ•°å­—çš„æ­£è´Ÿæ€§ç›¸åŒï¼Œç›´æ¥ç›¸å‡
+    // Á½¸öÊı×ÖµÄÕı¸ºĞÔÏàÍ¬£¬Ö±½ÓÏà¼õ
     if (negative==other.negative) {
-        // åˆ¤æ–­ä¸¤ä¸ªæ•°çš„å¤§å°å…³ç³»ï¼Œç¡®ä¿åšå‡æ³•æ—¶è¢«å‡æ•°å¤§äºç­‰äºå‡æ•°(thisç»å¯¹å€¼æ¯”è¾ƒå¤§)
+        // ÅĞ¶ÏÁ½¸öÊıµÄ´óĞ¡¹ØÏµ£¬È·±£×ö¼õ·¨Ê±±»¼õÊı´óÓÚµÈÓÚ¼õÊı(this¾ø¶ÔÖµ±È½Ï´ó)
         bool swap_flag=false;
         if (digits.size()<other.digits.size()) {
             swap_flag=true;
@@ -106,16 +138,16 @@ VeryLongInt VeryLongInt::operator-(const VeryLongInt &other) const {
                 }
             }
         }
-        //thisç»å¯¹å€¼æ¯”è¾ƒå°çš„æ—¶å€™->swap_flag=true
-        // å¦‚æœè¢«å‡æ•°å°äºå‡æ•°ï¼Œäº¤æ¢å®ƒä»¬çš„ä½ç½®ï¼Œå¹¶è®°å½•ç»“æœä¸ºè´Ÿæ•°
+        //this¾ø¶ÔÖµ±È½ÏĞ¡µÄÊ±ºò->swap_flag=true
+        // Èç¹û±»¼õÊıĞ¡ÓÚ¼õÊı£¬½»»»ËüÃÇµÄÎ»ÖÃ£¬²¢¼ÇÂ¼½á¹ûÎª¸ºÊı
         if (swap_flag) {
-            //è‡ªå·±è°ƒç”¨è‡ªå·±
+            //×Ô¼ºµ÷ÓÃ×Ô¼º
             VeryLongInt result=other-*this;
             result.negative=true;
             return result;
         }
-        int borrow=0;  // å€Ÿä½
-        vector<int> result;  // å­˜æ”¾ç»“æœ
+        int borrow=0;  // ½èÎ»
+        vector<int> result;  // ´æ·Å½á¹û
         // 123456->654321
         // 789->987
         for (int i=0; i<max(digits.size(), other.digits.size()); i++) {
@@ -134,106 +166,221 @@ VeryLongInt VeryLongInt::operator-(const VeryLongInt &other) const {
             }
             result.push_back(diff);
         }
-        // å»é™¤ç»“æœä¸­å‰å¯¼é›¶
+        // È¥³ı½á¹ûÖĞÇ°µ¼Áã
         while (result.size()>1&&result.back()==0) {
             result.pop_back();
         }
         return VeryLongInt(result, negative);
     }
-    // ä¸¤ä¸ªæ•°å­—çš„æ­£è´Ÿæ€§ä¸åŒï¼Œè°ƒç”¨åŠ æ³•
-    //æ­£-è´Ÿæ—¶ï¼Œæ­£+è´Ÿæ•°ç›¸åæ•°->ç»“æœä¸ºæ­£+æ­£    è´Ÿ-æ­£æ—¶ï¼Œè´Ÿ+æ­£çš„ç›¸åæ•°->ç»“æœä¸ºè´Ÿ+è´Ÿ
+    // Á½¸öÊı×ÖµÄÕı¸ºĞÔ²»Í¬£¬µ÷ÓÃ¼Ó·¨
+    //Õı-¸ºÊ±£¬Õı+¸ºÊıÏà·´Êı->½á¹ûÎªÕı+Õı    ¸º-ÕıÊ±£¬¸º+ÕıµÄÏà·´Êı->½á¹ûÎª¸º+¸º
     VeryLongInt neg_other=other;
     neg_other.negative=!neg_other.negative;
     return *this+neg_other;
 }
 
+VeryLongInt VeryLongInt::operator*(const VeryLongInt &other) const {
+    //³õÊ¼»¯Ò»¸ö³¤¶ÈÎªÁ½¸öÊäÈëÊı×ÖÎ»ÊıÖ®ºÍµÄÊı×é£¬ËùÓĞÔªËØ¶¼Îª0£¬ÓÃÓÚ´æ´¢³Ë»ıµÄ½á¹û
+    vector<int> result(digits.size()+other.digits.size(), 0);
 
-// é‡è½½<
+    for (int i=0; i<digits.size(); i++) {
+//        ÖğÎ»Ïà³Ë£º¶ÔÓÚµÚÒ»¸öÊıµÄÃ¿Ò»Î»£¬ÖğÒ»ÓëµÚ¶ş¸öÊıµÄÃ¿Ò»Î»Ïà³Ë¡£¡¢
+//        Í¬Ê±ĞèÒª¿¼ÂÇÇ°Ò»´Î³Ë·¨µÄ½øÎ»Çé¿ö¡£
+//        ¾ßÌåµØ£¬¶ÔÓÚµÚºÍµÚjÎ»Ïà³Ë£¬ĞèÒª½«ËüÃÇµÄ³Ë»ı¼ÓÉÏÇ°Ò»Î»µÄ½øÎ»ºÍ½á¹ûÊı×éÖĞÔ­±¾µÄÖµ£¨Èç¹ûÓĞ£©£¬È»ºó·Ö±ğÈ¡ÓàºÍ³ıÒÔ10µÃµ½µ±Ç°Î»µÄ½á¹ûºÍ½øÎ»¡£
+        int carry=0;
+        for (int j=0; j<other.digits.size(); j++) {
+            int prod=digits[i]*other.digits[j]+carry+result[i+j];
+            result[i+j]=prod%10;
+            carry=prod/10;
+        }
+        if (carry!=0) {
+            result[i+other.digits.size()]+=carry;
+        }
+    }
+
+    // ÓÉÓÚ¿ÉÄÜ»á³öÏÖÒ»Ğ©²»±ØÒªµÄÇ°µ¼Áã£¬ËùÒÔĞèÒªÔÚ·µ»Ø½á¹ûÇ°½«ËüÃÇÈ¥³ı¡£
+    while (result.size()>1&&result.back()==0) {
+        result.pop_back();
+    }
+
+    return VeryLongInt(result, negative!=other.negative);
+}
+
+VeryLongInt VeryLongInt::operator+(const long int &other) const {
+    VeryLongInt other_int(other);
+    return *this+other_int;
+}
+
+VeryLongInt VeryLongInt::operator-(const long int &other) const {
+    VeryLongInt other_int(other);
+    return *this-other_int;
+}
+
+VeryLongInt VeryLongInt::operator*(const long int &other) const {
+    VeryLongInt other_int(other);
+    return *this*other_int;
+}
+
+VeryLongInt VeryLongInt::operator=(const VeryLongInt &other) {
+    this->digits=other.digits;
+    this->negative=other.negative;
+}
+
+VeryLongInt VeryLongInt::operator+(const string &other) const {
+    VeryLongInt other_int(other);
+    return *this+other_int;
+}
+
+VeryLongInt VeryLongInt::operator-(const string &other) const {
+    VeryLongInt other_int(other);
+    return *this-other_int;
+}
+
+VeryLongInt VeryLongInt::operator*(const string &other) const {
+    VeryLongInt other_int(other);
+    return *this*other_int;
+}
+
+VeryLongInt VeryLongInt::operator+=(const VeryLongInt &other) {
+    VeryLongInt other_int(other);
+    *this=*this+other_int;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator-=(const VeryLongInt &other) {
+    VeryLongInt other_int(other);
+    *this=*this-other_int;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator*=(const VeryLongInt &other) {
+    VeryLongInt other_int(other);
+    *this=*this*other_int;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator+=(const long int &other) {
+    VeryLongInt other_int(other);
+    *this=*this+other_int;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator-=(const long int &other) {
+    VeryLongInt other_int(other);
+    *this=*this-other_int;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator*=(const long int &other) {
+    VeryLongInt other_int(other);
+    *this=*this*other_int;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator+=(const string &other) {
+    VeryLongInt other_int(other);
+    *this=*this+other_int;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator-=(const string &other) {
+    VeryLongInt other_int(other);
+    *this=*this-other_int;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator*=(const string &other) {
+    VeryLongInt other_int(other);
+    *this=*this*other_int;
+    return *this;
+}
+
+// ÖØÔØ<
 bool VeryLongInt::operator<(const VeryLongInt &other) const {
     if (negative!=other.negative) {
-        //è´Ÿæ•°ï¼=æ­£æ•°->return true
+        //¸ºÊı£¡=ÕıÊı->return true
         return negative;
     }
-        //ç¬¦å·éƒ½ä¸ºæ­£
+        //·ûºÅ¶¼ÎªÕı
     else if (!negative) {
         if (digits.size()!=other.digits.size()) {
             if (digits.size()<other.digits.size())return true;
             if (digits.size()>other.digits.size())return false;
         }
-        //é•¿åº¦ç›¸åŒ
+        //³¤¶ÈÏàÍ¬
         for (int i=digits.size()-1; i>=0; --i) {
-            //ä»æœ€å¤§ä½å¼€å§‹æ¯”è¾ƒ
+            //´Ó×î´óÎ»¿ªÊ¼±È½Ï
             if (digits[i]!=other.digits[i]) {
                 if (digits[i]<other.digits[i])return true;
                 if (digits[i]>other.digits[i])return false;
             }
         }
-        //ç›¸ç­‰
+        //ÏàµÈ
         return false;
     }
-        //ç¬¦å·éƒ½ä¸ºè´Ÿ
+        //·ûºÅ¶¼Îª¸º
     else {
         if (digits.size()!=other.digits.size()) {
             if (digits.size()<other.digits.size())return false;
             if (digits.size()>other.digits.size())return true;
         }
-        //é•¿åº¦ç›¸åŒ
+        //³¤¶ÈÏàÍ¬
         for (int i=digits.size()-1; i>=0; --i) {
-            //ä»æœ€å¤§ä½å¼€å§‹æ¯”è¾ƒ
+            //´Ó×î´óÎ»¿ªÊ¼±È½Ï
             if (digits[i]!=other.digits[i]) {
                 if (digits[i]<other.digits[i])return false;
                 if (digits[i]>other.digits[i])return true;
             }
         }
-        //ç›¸ç­‰
+        //ÏàµÈ
         return false;
     }
 }
 
 
-//é‡è½½>
+//ÖØÔØ>
 bool VeryLongInt::operator>(const VeryLongInt &other) const {
     if (negative!=other.negative) {
-        //è´Ÿæ•°ï¼=æ­£æ•°->return false
+        //¸ºÊı£¡=ÕıÊı->return false
         return other.negative;
     }
-        //ç¬¦å·éƒ½ä¸ºæ­£
+        //·ûºÅ¶¼ÎªÕı
     else if (!negative) {
         if (digits.size()!=other.digits.size()) {
             if (digits.size()<other.digits.size())return false;
             if (digits.size()>other.digits.size())return true;
         }
-        //é•¿åº¦ç›¸åŒ
+        //³¤¶ÈÏàÍ¬
         for (int i=digits.size()-1; i>=0; --i) {
-            //ä»æœ€å¤§ä½å¼€å§‹æ¯”è¾ƒ
+            //´Ó×î´óÎ»¿ªÊ¼±È½Ï
             if (digits[i]!=other.digits[i]) {
                 if (digits[i]<other.digits[i])return false;
                 if (digits[i]>other.digits[i])return true;
             }
         }
-        //ç›¸ç­‰
+        //ÏàµÈ
         return false;
     }
-        //ç¬¦å·éƒ½ä¸ºè´Ÿ
+        //·ûºÅ¶¼Îª¸º
     else {
         if (digits.size()!=other.digits.size()) {
             if (digits.size()<other.digits.size())return true;
             if (digits.size()>other.digits.size())return false;
         }
-        //é•¿åº¦ç›¸åŒ
+        //³¤¶ÈÏàÍ¬
         for (int i=digits.size()-1; i>=0; --i) {
-            //ä»æœ€å¤§ä½å¼€å§‹æ¯”è¾ƒ
+            //´Ó×î´óÎ»¿ªÊ¼±È½Ï
             if (digits[i]!=other.digits[i]) {
                 if (digits[i]<other.digits[i])return true;
                 if (digits[i]>other.digits[i])return false;
             }
         }
-        //ç›¸ç­‰
+        //ÏàµÈ
         return false;
     }
 }
 
-//é‡è½½>=
+//ÖØÔØ>=
 bool VeryLongInt::operator>=(const VeryLongInt &other) const {
     if (*this>other||*this==other) {
         return true;
@@ -242,7 +389,7 @@ bool VeryLongInt::operator>=(const VeryLongInt &other) const {
     }
 }
 
-//é‡è½½<=
+//ÖØÔØ<=
 bool VeryLongInt::operator<=(const VeryLongInt &other) const {
     if (*this<other||*this==other) {
         return true;
@@ -251,12 +398,12 @@ bool VeryLongInt::operator<=(const VeryLongInt &other) const {
     }
 }
 
-// åˆ¤æ–­ç›¸ç­‰
+// ÅĞ¶ÏÏàµÈ
 bool VeryLongInt::operator==(const VeryLongInt &other) const {
     return negative==other.negative&&digits==other.digits;
 }
 
-// è¾“å‡ºåˆ°æµ
+// Êä³öµ½Á÷
 std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
     if (num.digits.empty()) {
         os<<"0";
@@ -269,4 +416,22 @@ std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
         }
     }
     return os;
+}
+
+//ÏÔÊ¾Ê±¼äÏÔÊ¾°æÈ¨µÄ²Ëµ¥
+void show_copyright() {
+    cout<<endl<<"    ---Copyright---(c++) 2023-2023 ÓÎ¿¢³¬(222200231). All Rights Reserved.---    ";
+    cout<<endl;
+    show_time();
+    cout<<endl;
+}
+
+void show_time() {
+    string week[7]={"ĞÇÆÚÈÕ", "ĞÇÆÚÒ»", "ĞÇÆÚ¶ş", "ĞÇÆÚÈı", "ĞÇÆÚËÄ", "ĞÇÆÚÎå", "ĞÇÆÚÁù"};
+    SYSTEMTIME now2;
+    GetLocalTime(&now2);
+    time_t now=time(0);
+    tm *ltm=localtime(&now);
+    cout<<endl<<"        µ±Ç°ÈÕÆÚ¡¢Ê±¼ä :"<<ltm->tm_year+1900<<"."<<1+ltm->tm_mon<<"."<<ltm->tm_mday<<" "<<ltm->tm_hour
+        <<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<"("<<week[now2.wDayOfWeek]<<") "<<endl;
 }
