@@ -18,7 +18,14 @@ int main() {
     cout<<"int3-int4="<<int3-int4<<endl;//
     cout<<"int3-int4="<<int3-int4<<endl;
     cout<<"int3*int4="<<int3*int4<<endl;
-    int a=-0xf;
-    cout<<(a+=2)<<endl;
+    VeryLongInt int5("0123");
+    int5.print();
+    VeryLongInt int6("-0456");
+    int6.print();
+    VeryLongInt int7("0x123");
+    int7.print();
+    VeryLongInt int8("-0x456");
+    int8.print();
+    ::system("pause");
     return 0;
 }

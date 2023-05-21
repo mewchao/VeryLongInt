@@ -1,58 +1,121 @@
-//
-// Created by 86150 on 2023-05-20.
-//
 #include "VeryLongInt.h"
 
 //字符串构造
 VeryLongInt::VeryLongInt(string str) {
-    //十六进制或者八进制的字符串->转化为十进制的长整型
-    if(str[0]=='0'){
-        long int ;
-        //十六进制字符串
-        if(str[1]=='x'||str[1]=='X'){
-
-
-
-        }
-        //八进制字符串
-        else{
-
-
-
-
-
-
-        }
-    }
-    //十进制字符串
+    //字符串为负数
     if (str[0]=='-') {
-        negative=true;
-        for (int i=str.size()-1; i>=1; i--) {
-            digits.push_back(str[i]-'0');
+        //去除负号
+        str.erase(0, 1);
+        if (str[0]=='0') {
+            //十六进制或者八进制的字符串->转化为十进制的长整型
+            //十进制的长整型
+            long int int_10=0;
+            //十六进制字符串
+            if (str[1]=='x'||str[1]=='X') {
+                str.erase(0, 2);
+                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
+                    //0x123->123
+                    if (str[i]>='0'&&str[i]<='9')
+                        int_10+=(str[i]-'0')*pow(16, j);
+
+                    else if (str[i]>='a'&&str[i]<='f')
+                        int_10+=(str[i]-'W')*pow(16, j);
+
+                    else if (str[i]>='A'&&str[i]<='F')
+                        int_10+=(str[i]-'7')*pow(16, j);
+
+                    else {
+                        //十六进制数不合法！！抛出异常
+                    }
+                }
+            }
+                //八进制字符串
+            else {
+                str.erase(0, 1);
+                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
+                    //0x123->123
+                    if (str[i]>='0'&&str[i]<='7')
+                        int_10+=(str[i]-'0')*pow(8, j);
+                    else {
+                        //八进制数不合法！！抛出异常
+                    }
+                }
+            }
+            this->negative=true;
+            while (int_10) {
+                this->digits.push_back(int_10%10);
+                int_10/=10;
+            }
+
+        } else {
+            //十进制字符串
+            for (int i=str.size()-1; i>=1; i--) {
+                digits.push_back(str[i]-'0');
+            }
         }
     } else {
-        negative=false;
-        for (int i=str.size()-1; i>=0; i--) {
-            digits.push_back(str[i]-'0');
-        }
-    }
+        //字符串为正数
+        if (str[0]=='0') {
+            //十六进制或者八进制的字符串->转化为十进制的长整型
+            //十进制的长整型
+            long int int_10=0;
+            //十六进制字符串
+            if (str[1]=='x'||str[1]=='X') {
+                str.erase(0, 2);
+                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
+                    //0x123->123
+                    if (str[i]>='0'&&str[i]<='9')
+                        int_10+=(str[i]-'0')*pow(16, j);
 
+                    else if (str[i]>='a'&&str[i]<='f')
+                        int_10+=(str[i]-'W')*pow(16, j);
+
+                    else if (str[i]>='A'&&str[i]<='F')
+                        int_10+=(str[i]-'7')*pow(16, j);
+
+                    else {
+                        //十六进制数不合法！！抛出异常
+                    }
+                }
+            }
+                //八进制字符串
+            else {
+                str.erase(0, 1);
+                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
+                    if (str[i]>='0'&&str[i]<='7')
+                        int_10+=(str[i]-'0')*pow(8, j);
+                    else {
+                        //八进制数不合法！！抛出异常
+                    }
+                }
+            }
+            this->negative=false;
+            while (int_10) {
+                this->digits.push_back(int_10%10);
+                int_10/=10;
+            }
+        } else {
+            for (int i=str.size()-1; i>=1; i--) {
+                digits.push_back(str[i]-'0');
+            }
+        }
+
+    }
 }
 
-//长整形构造
+//十进制的长整形构造
 VeryLongInt::VeryLongInt(long int other) {
     if (other<0) {
-        negative=true;
+        this->negative=true;
         other=-other;
     } else {
-        negative=false;
+        this->negative=false;
     }
     while (other) {
-        digits.push_back(other%10);
+        this->digits.push_back(other%10);
         other/=10;
     }
 }
-
 
 //用一个向量和正负号来构造
 VeryLongInt::VeryLongInt(vector<int> v, bool negative) {
@@ -197,12 +260,10 @@ VeryLongInt VeryLongInt::operator*(const VeryLongInt &other) const {
             result[i+other.digits.size()]+=carry;
         }
     }
-
     // 由于可能会出现一些不必要的前导零，所以需要在返回结果前将它们去除。
     while (result.size()>1&&result.back()==0) {
         result.pop_back();
     }
-
     return VeryLongInt(result, negative!=other.negative);
 }
 
@@ -221,9 +282,10 @@ VeryLongInt VeryLongInt::operator*(const long int &other) const {
     return *this*other_int;
 }
 
-VeryLongInt VeryLongInt::operator=(const VeryLongInt &other) {
+VeryLongInt VeryLongInt::operator=(VeryLongInt other) {
     this->digits=other.digits;
     this->negative=other.negative;
+
 }
 
 VeryLongInt VeryLongInt::operator+(const string &other) const {

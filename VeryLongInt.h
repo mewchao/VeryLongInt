@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <iterator>
 #include <string>
 #include <algorithm>
-#include<windows.h>
-
+#include <windows.h>
+#include <math.h>
 #ifndef UNTITLED_VERYLONGINT_H
 #define UNTITLED_VERYLONGINT_H
 using namespace std;
@@ -59,7 +60,7 @@ public:
 
     VeryLongInt operator*=(const long int &other);
 
-    VeryLongInt operator=(const VeryLongInt &other);
+    VeryLongInt operator=( VeryLongInt other);
 
     VeryLongInt operator+(const string &other) const;
 
