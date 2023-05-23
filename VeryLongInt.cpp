@@ -1,7 +1,7 @@
-#include "VeryLongInt.h"
+# include "VeryLongInt.h"
 
 //字符串构造
-VeryLongInt::VeryLongInt(string str) {
+VeryLongInt::VeryLongInt(std::string str) {
     //字符串为负数
     if (str[0]=='-') {
         //去除负号
@@ -26,6 +26,7 @@ VeryLongInt::VeryLongInt(string str) {
 
                     else {
                         //十六进制数不合法！！抛出异常
+                        throw invalic_number_exception(str);
                     }
                 }
             }
@@ -38,6 +39,7 @@ VeryLongInt::VeryLongInt(string str) {
                         int_10+=(str[i]-'0')*pow(8, j);
                     else {
                         //八进制数不合法！！抛出异常
+                        throw invalic_number_exception(str);
                     }
                 }
             }
@@ -49,7 +51,10 @@ VeryLongInt::VeryLongInt(string str) {
 
         } else {
             //十进制字符串
-            for (int i=str.size()-1; i>=1; i--) {
+            this->negative=true;
+//            std::cout<<"进入负数十进制"<<std::endl;
+//            std::cout<<"str"<<str<<std::endl;
+            for (int i=str.size()-1; i>=0; i--) {
                 digits.push_back(str[i]-'0');
             }
         }
@@ -75,6 +80,7 @@ VeryLongInt::VeryLongInt(string str) {
 
                     else {
                         //十六进制数不合法！！抛出异常
+                        throw invalic_number_exception(str);
                     }
                 }
             }
@@ -86,6 +92,7 @@ VeryLongInt::VeryLongInt(string str) {
                         int_10+=(str[i]-'0')*pow(8, j);
                     else {
                         //八进制数不合法！！抛出异常
+                        throw invalic_number_exception(str);
                     }
                 }
             }
@@ -95,7 +102,8 @@ VeryLongInt::VeryLongInt(string str) {
                 int_10/=10;
             }
         } else {
-            for (int i=str.size()-1; i>=1; i--) {
+            this->negative=false;
+            for (int i=str.size()-1; i>=0; i--) {
                 digits.push_back(str[i]-'0');
             }
         }
@@ -105,6 +113,12 @@ VeryLongInt::VeryLongInt(string str) {
 
 //十进制的长整形构造
 VeryLongInt::VeryLongInt(long int other) {
+    if(isOctal(other)){
+        other=octalToDecimal(other);
+    }
+    if(isHexadecimal(other)){
+        other=hexadecimalToDecimal(other);
+    }
     if (other<0) {
         this->negative=true;
         other=-other;
@@ -117,8 +131,51 @@ VeryLongInt::VeryLongInt(long int other) {
     }
 }
 
+
+bool isOctal(long int number) {
+    std::string strNumber = std::to_string(number);
+    if (strNumber.length() > 1 && strNumber[0] == '0') {
+        for (size_t i = 1; i < strNumber.length(); ++i) {
+            if (strNumber[i] < '0' || strNumber[i] > '7') {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+bool isHexadecimal(long int number) {
+    std::string strNumber = std::to_string(number);
+    if (strNumber.length() > 2 && strNumber[0] == '0' &&
+        (strNumber[1] == 'x' || strNumber[1] == 'X')) {
+        for (size_t i = 2; i < strNumber.length(); ++i) {
+            if (!((strNumber[i] >= '0' && strNumber[i] <= '9') ||
+                  (strNumber[i] >= 'A' && strNumber[i] <= 'F') ||
+                  (strNumber[i] >= 'a' && strNumber[i] <= 'f'))) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+
+long int octalToDecimal(long int octalNumber) {
+    std::string strOctal = std::to_string(octalNumber);
+    long int decimalNumber = std::stol(strOctal, nullptr, 8);
+    return decimalNumber;
+}
+
+long int hexadecimalToDecimal(long int hexadecimalNumber) {
+    std::string strHexadecimal = std::to_string(hexadecimalNumber);
+    long int decimalNumber = std::stol(strHexadecimal, nullptr, 16);
+    return decimalNumber;
+}
+
 //用一个向量和正负号来构造
-VeryLongInt::VeryLongInt(vector<int> v, bool negative) {
+VeryLongInt::VeryLongInt(std::vector<int> v, bool negative) {
     this->digits=v;
     this->negative=negative;
 }
@@ -126,16 +183,16 @@ VeryLongInt::VeryLongInt(vector<int> v, bool negative) {
 //打印
 void VeryLongInt::print() {
     if (digits.empty()) {
-        cout<<"0"<<endl;
+        std::cout<<"0"<<std::endl;
         return;
     }
     if (negative) {
-        cout<<"-";
+        std::cout<<"-";
     }
     for (int i=digits.size()-1; i>=0; i--) {
-        cout<<digits[i];
+        std::cout<<digits[i];
     }
-    cout<<endl;
+    std::cout<<std::endl;
 }
 
 // 取相反数
@@ -155,10 +212,10 @@ VeryLongInt VeryLongInt::operator+(const VeryLongInt &other) const {
     //两个数字的正负性相同，直接相加
     if (negative==other.negative) {
         int carry=0;  //进位
-        vector<int> result;  //存放结果
+        std::vector<int> result;  //存放结果
         //123456->654321
         //789->987
-        for (int i=0; i<max(digits.size(), other.digits.size()); i++) {
+        for (int i=0; i<std::max(digits.size(), other.digits.size()); i++) {
             int sum=carry;
             if (i<digits.size()) {
                 sum+=digits[i];
@@ -210,10 +267,10 @@ VeryLongInt VeryLongInt::operator-(const VeryLongInt &other) const {
             return result;
         }
         int borrow=0;  // 借位
-        vector<int> result;  // 存放结果
+        std::vector<int> result;  // 存放结果
         // 123456->654321
         // 789->987
-        for (int i=0; i<max(digits.size(), other.digits.size()); i++) {
+        for (int i=0; i<std::max(digits.size(), other.digits.size()); i++) {
             int diff=borrow;
             if (i<digits.size()) {
                 diff+=digits[i];
@@ -244,7 +301,7 @@ VeryLongInt VeryLongInt::operator-(const VeryLongInt &other) const {
 
 VeryLongInt VeryLongInt::operator*(const VeryLongInt &other) const {
     //初始化一个长度为两个输入数字位数之和的数组，所有元素都为0，用于存储乘积的结果
-    vector<int> result(digits.size()+other.digits.size(), 0);
+    std::vector<int> result(digits.size()+other.digits.size(), 0);
 
     for (int i=0; i<digits.size(); i++) {
 //        逐位相乘：对于第一个数的每一位，逐一与第二个数的每一位相乘。、
@@ -267,6 +324,135 @@ VeryLongInt VeryLongInt::operator*(const VeryLongInt &other) const {
     return VeryLongInt(result, negative!=other.negative);
 }
 
+VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const {
+    // 判断除数是否为零
+    if (other.digits.size() == 1 && other.digits[0] == 0) {
+        std::cerr << "Error: Division by zero" << std::endl;
+        return VeryLongInt(""); // 返回一个默认的 VeryLongInt 对象
+    }
+
+    // 检查除数和被除数的位数大小关系
+    if (digits.size() < other.digits.size()) {
+        return VeryLongInt(0); // 如果被除数小于除数，结果为0
+    }
+
+    // 初始化结果和临时被除数
+    int resultSize = digits.size() - other.digits.size() + 1;
+    std::vector<int> result(resultSize, 0);
+    std::vector<int> temp(digits); // 临时被除数
+
+    // 长除法的迭代计算
+    for (int i = resultSize - 1; i >= 0; --i) {
+        int q = 0; // 商
+        int tempSize = temp.size();
+
+        // 将临时被除数左移至与除数对齐
+        while (tempSize > other.digits.size()) {
+            --tempSize;
+            temp[tempSize] = temp[tempSize - 1];
+        }
+        temp[tempSize] = digits[i + other.digits.size() - 1];
+
+        // 计算当前位的商
+        while (tempSize >= other.digits.size()) {
+            int t = temp[tempSize] / other.digits.back();
+            q = q * 10 + t;
+
+            // 更新临时被除数
+            for (int j = 0; j < other.digits.size(); ++j) {
+                temp[tempSize - j] -= t * other.digits[other.digits.size() - j - 1];
+            }
+
+            --tempSize;
+        }
+
+        // 更新结果的当前位
+        result[i] = q;
+    }
+
+    return VeryLongInt(result,negative);
+}
+
+
+
+
+VeryLongInt VeryLongInt::operator%(const VeryLongInt &other) const {
+    // 处理除数为0的情况
+    if (other == 0) {
+        throw std::runtime_error("Divide by zero.");
+    }
+
+    // 如果被除数小于除数，则余数为被除数本身
+    if (*this < other) {
+        return *this;
+    }
+
+    // 使用Knuth算法进行大整数除法
+    VeryLongInt dividend = *this; // 被除数
+
+    int n = dividend.digits.size(); // 被除数的位数
+    int m = other.digits.size(); // 除数的位数
+
+    // 对被除数和除数进行标准化，使得除数的最高位为BASE
+    unsigned int d = BASE / (other.digits.back() + 1);
+    dividend *= d;
+    VeryLongInt normalizedDivisor = other * d;
+
+    for (int j = n - m; j >= 0; --j) {
+        // 估计商的当前位
+        int qt = (dividend.digits[j + m] * BASE + dividend.digits[j + m - 1]) / normalizedDivisor.digits.back();
+        int rt = (dividend.digits[j + m] * BASE + dividend.digits[j + m - 1]) % normalizedDivisor.digits.back();
+
+        // 调整估计值，确保 qt <= BASE
+        while (qt > 0 && (qt * normalizedDivisor.digits[m - 2] > BASE * rt + dividend.digits[j + m - 2])) {
+            --qt;
+            rt += normalizedDivisor.digits.back();
+        }
+
+        // 将被除数减去除数的估计乘以除数
+        VeryLongInt tmp = normalizedDivisor * qt;
+        bool borrow = false;
+
+        for (int i = 0; i < m; ++i) {
+            int diff = dividend.digits[j + i] - tmp.digits[i] - (borrow ? 1 : 0);
+            if (diff < 0) {
+                diff += BASE;
+                borrow = true;
+            } else {
+                borrow = false;
+            }
+            dividend.digits[j + i] = diff;
+        }
+
+        if (borrow) {
+            int diff = dividend.digits[j + m] - 1;
+            if (diff < 0) {
+                diff += BASE;
+                borrow = true;
+            } else {
+                borrow = false;
+            }
+            dividend.digits[j + m] = diff;
+        }
+    }
+
+    // 去除余数前导零
+    while (!dividend.digits.empty() && dividend.digits.back() == 0) {
+        dividend.digits.pop_back();
+    }
+
+    dividend.negative = negative;
+
+    // 如果余数为0，则设置其正负号为正
+    if (dividend.digits.empty()) {
+        dividend.negative = false;
+    }
+
+    return dividend;
+}
+
+
+
 VeryLongInt VeryLongInt::operator+(const long int &other) const {
     VeryLongInt other_int(other);
     return *this+other_int;
@@ -285,20 +471,43 @@ VeryLongInt VeryLongInt::operator*(const long int &other) const {
 VeryLongInt VeryLongInt::operator=(VeryLongInt other) {
     this->digits=other.digits;
     this->negative=other.negative;
-
+    return *this;
 }
 
-VeryLongInt VeryLongInt::operator+(const string &other) const {
+VeryLongInt VeryLongInt::operator+(const std::string &other) const {
     VeryLongInt other_int(other);
     return *this+other_int;
 }
 
-VeryLongInt VeryLongInt::operator-(const string &other) const {
+VeryLongInt VeryLongInt::operator-(const std::string &other) const {
     VeryLongInt other_int(other);
     return *this-other_int;
 }
+//先+1后返回
+VeryLongInt VeryLongInt::operator++() {
+    *this+=1;
+    return *this;
+}
 
-VeryLongInt VeryLongInt::operator*(const string &other) const {
+VeryLongInt VeryLongInt::operator--() {
+    *this-=1;
+    return *this;
+}
+
+VeryLongInt VeryLongInt::operator++(int) {
+    VeryLongInt temp=*this;
+    *this+=1;
+    return temp;
+}
+
+VeryLongInt VeryLongInt::operator--(int) {
+    VeryLongInt temp=*this;
+    *this-=1;
+    return temp;
+}
+
+
+VeryLongInt VeryLongInt::operator*(const std::string &other) const {
     VeryLongInt other_int(other);
     return *this*other_int;
 }
@@ -339,19 +548,19 @@ VeryLongInt VeryLongInt::operator*=(const long int &other) {
     return *this;
 }
 
-VeryLongInt VeryLongInt::operator+=(const string &other) {
+VeryLongInt VeryLongInt::operator+=(const std::string &other) {
     VeryLongInt other_int(other);
     *this=*this+other_int;
     return *this;
 }
 
-VeryLongInt VeryLongInt::operator-=(const string &other) {
+VeryLongInt VeryLongInt::operator-=(const std::string &other) {
     VeryLongInt other_int(other);
     *this=*this-other_int;
     return *this;
 }
 
-VeryLongInt VeryLongInt::operator*=(const string &other) {
+VeryLongInt VeryLongInt::operator*=(const std::string &other) {
     VeryLongInt other_int(other);
     *this=*this*other_int;
     return *this;
@@ -465,6 +674,10 @@ bool VeryLongInt::operator==(const VeryLongInt &other) const {
     return negative==other.negative&&digits==other.digits;
 }
 
+// 判断相等
+bool VeryLongInt::operator!=(const VeryLongInt &other) const{
+    return !(negative==other.negative&&digits==other.digits);
+}
 // 输出到流
 std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
     if (num.digits.empty()) {
@@ -482,18 +695,18 @@ std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
 
 //显示时间显示版权的菜单
 void show_copyright() {
-    cout<<endl<<"    ---Copyright---(c++) 2023-2023 游竣超(222200231). All Rights Reserved.---    ";
-    cout<<endl;
+    std::cout<<std::endl<<"    ---Copyright---(c++) 2023-2023 游竣超(222200231). All Rights Reserved.---    ";
+    std::cout<<std::endl;
     show_time();
-    cout<<endl;
+    std::cout<<std::endl;
 }
 
 void show_time() {
-    string week[7]={"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+    std::string week[7]={"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
     SYSTEMTIME now2;
     GetLocalTime(&now2);
     time_t now=time(0);
     tm *ltm=localtime(&now);
-    cout<<endl<<"        当前日期、时间 :"<<ltm->tm_year+1900<<"."<<1+ltm->tm_mon<<"."<<ltm->tm_mday<<" "<<ltm->tm_hour
-        <<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<"("<<week[now2.wDayOfWeek]<<") "<<endl;
+    std::cout<<std::endl<<"        当前日期、时间 :"<<ltm->tm_year+1900<<"."<<1+ltm->tm_mon<<"."<<ltm->tm_mday<<" "<<ltm->tm_hour
+        <<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<"("<<week[now2.wDayOfWeek]<<") "<<std::endl;
 }

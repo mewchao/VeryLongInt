@@ -1,0 +1,104 @@
+VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const {
+    // 处理除数为0的情况
+    if (other == 0) {
+        throw std::runtime_error("Divide by zero.");
+    }
+
+    // 计算被除数和除数的位数
+    int n = digits.size(), m = other.digits.size();
+
+    // 构造一个存放商的 VeryLongInt 对象
+    VeryLongInt quotient;
+
+    // 复制被除数，用于计算过程
+    VeryLongInt dividend = *this;
+
+    // 从高位开始逐步计算商和余数
+    for (int i = n - m; i >= 0; --i) {
+        // 通过移动除数的位置来计算当前位的商
+        VeryLongInt temp = other;
+        temp.digits.insert(temp.digits.begin(), i, 0);  // 将除数左移i位
+
+        int q = 0;  // 当前位的商
+
+        while (dividend >= temp) {
+            dividend -= temp;
+            ++q;
+        }
+
+        // 将计算得到的商添加到商的 vector 中
+        quotient.digits.push_back(q);
+    }
+
+    // 去除商前导零
+    while (!quotient.digits.empty() && quotient.digits.back() == 0) {
+        quotient.digits.pop_back();
+    }
+
+    // 判断商的正负号
+    quotient.negative = (negative != other.negative);
+
+    // 如果商为0，则设置其正负号为正
+    if (quotient.digits.empty()) {
+        quotient.negative = false;
+    }
+
+    return quotient;
+}
+
+
+
+VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const{
+    // 处理除数为0的情况
+    if (other == 0) {
+        throw std::runtime_error("Divide by zero.");
+    }
+
+    // 计算被除数和除数的位数
+    int n = digits.size(), m = other.digits.size();
+
+    // 判断是否需要进位
+    bool carry = false;
+
+    // 构造一个存放商的 VeryLongInt 对象
+    VeryLongInt quotient;
+
+    // 遍历被除数的每一位，从高位到低位依次计算商
+    for (int i = n - 1; i >= 0; --i) {
+        // 将上一次计算的余数乘以10并加上当前位的数字
+        VeryLongInt temp;
+        if (carry) {
+            temp = digits[i] + 10;
+        } else {
+            temp = digits[i];
+        }
+
+        // 计算当前位的商
+        int q = 0;
+        while (temp >= other) {
+            temp -= other;
+            ++q;
+        }
+
+        // 更新余数
+        carry = (temp < other && temp != 0);
+
+        // 将计算得到的商添加到商的 vector 中
+        quotient.digits.insert(quotient.digits.begin(), q);
+    }
+
+    // 去除商前导零
+    while (!quotient.digits.empty() && quotient.digits.back() == 0) {
+        quotient.digits.pop_back();
+    }
+
+    // 判断商的正负号
+    quotient.negative = (negative != other.negative);
+
+    // 如果商为0，则设置其正负号为正
+    if (quotient.digits.empty()) {
+        quotient.negative = false;
+    }
+
+    return quotient;
+}

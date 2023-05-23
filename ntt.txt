@@ -1,0 +1,71 @@
+VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const {
+    // 处理除数为0的情况
+    if (other == 0) {
+        throw std::runtime_error("Divide by zero.");
+    }
+
+    // 计算被除数和除数的位数
+    int n = digits.size(), m = other.digits.size();
+
+    // 将被除数和除数转换为多项式形式
+    vector<int> polyA(n), polyB(m);
+    for (int i = 0; i < n; ++i) {
+        polyA[i] = digits[i];
+    }
+    for (int i = 0; i < m; ++i) {
+        polyB[i] = other.digits[i];
+    }
+
+    // 计算多项式除法
+    vector<int> result = NTTDivide(polyA, polyB);
+
+    // 将结果转换为 VeryLongInt 对象
+    VeryLongInt quotient;
+    for (int i = 0; i < result.size(); ++i) {
+        quotient.digits.push_back(result[i]);
+    }
+
+    // 去除商前导零
+    while (!quotient.digits.empty() && quotient.digits.back() == 0) {
+        quotient.digits.pop_back();
+    }
+
+    // 判断商的正负号
+    quotient.negative = (negative != other.negative);
+
+    // 如果商为0，则设置其正负号为正
+    if (quotient.digits.empty()) {
+        quotient.negative = false;
+    }
+
+    return quotient;
+}
+
+
+vector<int> NTTDivide(const vector<int>& polyA, const vector<int>& polyB) {
+    int n = polyA.size(), m = polyB.size();
+    // TODO: 使用NTT算法进行多项式除法的实现
+    // 注意，需要实现NTT算法中的多项式乘法和逆变换
+    // 返回结果为多项式的系数
+    // 扩展多项式长度为2的幂次方
+    int size = 1;
+    while (size < n - m + 1) {
+        size <<= 1;
+    }
+
+    vector<int> revPolyA(polyA.rbegin(), polyA.rend());
+    vector<int> revPolyB(polyB.rbegin(), polyB.rend());
+    revPolyA.resize(size), revPolyB.resize(size);
+
+    // 计算多项式的乘法
+    vector<int> mul = multiply(revPolyA, revPolyB);
+
+    // 进行多项式的逆变换
+    reverse(mul.begin() + 1, mul.end());
+    NTT(mul, true);
+
+    // 裁剪结果，得到除法的商
+    vector<int> result(mul.begin(), mul.begin() + n - m + 1);
+
+    return result;
+}
