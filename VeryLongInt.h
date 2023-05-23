@@ -85,6 +85,11 @@ public:
 
     void print();
 
+    void print_hexadecimal();
+
+    void print_octal();
+
+
     // 取相反数
     VeryLongInt operator-() const;
 
@@ -183,6 +188,10 @@ private:
 bool isHexadecimal(long int number);
 
 bool isOctal(long int number);
+
+std::string int_to_hex(long int num);
+
+std::string int_to_oct( long int num);
 
 long int hexadecimalToDecimal(long int hexadecimalNumber);
 

@@ -4,6 +4,7 @@
 int main() {
     show_copyright();
     VeryLongInt int1(123456);
+    int1.print_hexadecimal();
     int1.print();
     VeryLongInt int2(0x123456);
     int2.print();

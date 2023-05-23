@@ -180,7 +180,9 @@ VeryLongInt::VeryLongInt(std::vector<int> v, bool negative) {
     this->negative=negative;
 }
 
-//打印
+
+
+//按照十进制输出
 void VeryLongInt::print() {
     if (digits.empty()) {
         std::cout<<"0"<<std::endl;
@@ -193,6 +195,72 @@ void VeryLongInt::print() {
         std::cout<<digits[i];
     }
     std::cout<<std::endl;
+}
+
+
+
+//按照十六进制输出
+void VeryLongInt::print_hexadecimal() {
+    //存放十进制形式的结果->转化为十六进制
+    long int temp=0;
+    if (digits.empty()) {
+        std::cout<<"0"<<std::endl;
+        return;
+    }
+    if (negative) {
+        std::cout<<"-";
+    }
+    //123->321->123
+    for(int i=digits.size()-1;i>=0;i--){
+        temp=temp*10+digits[i];
+    }
+    std::cout << int_to_hex (temp) << std::endl;
+}
+
+
+
+//按照八进制输出
+void VeryLongInt::print_octal() {
+    //存放十进制形式的结果->转化为八进制
+    long int temp=0;
+    if (digits.empty()) {
+        std::cout<<"0"<<std::endl;
+        return;
+    }
+    if (negative) {
+        std::cout<<"-";
+    }
+    for(int i=digits.size()-1;i>=0;i--){
+        temp=temp*10+digits[i];
+    }
+    std::cout << int_to_oct (temp) << std::endl;
+    std::cout<<std::endl;
+}
+
+
+
+//把长整型转化为十六进制字符串
+std::string int_to_hex( long int num) {
+    std::string hex_string;
+    const char* hexChars = "0123456789abcdef";
+    while (num > 0) {
+        int digit = num % 16;
+        hex_string = hexChars[digit] + hex_string;
+        num /= 16;
+    }
+    return hex_string;
+}
+
+//把长整型转化为八进制字符串
+std::string int_to_oct( long int num) {
+    std::string oct_string;
+    const char* hexChars = "01234567";
+    while (num > 0) {
+        int digit = num % 8;
+        oct_string = hexChars[digit] + oct_string;
+        num /= 8;
+    }
+    return oct_string;
 }
 
 // 取相反数
