@@ -1,0 +1,119 @@
+
+//字符串构造
+VeryLongInt::VeryLongInt(std::string str) {
+    //字符串为负数
+    if (str[0]=='-') {
+        //去除负号
+        str.erase(0, 1);
+        if (str[0]=='0') {
+            //十六进制或者八进制的字符串->转化为十进制的长整型
+            //十进制的长整型
+            long int int_10=0;
+            //十六进制字符串
+            if (str[1]=='x'||str[1]=='X') {
+                str.erase(0, 2);
+                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
+                    //0x123->123
+                    if (str[i]>='0'&&str[i]<='9')
+                        int_10+=(str[i]-'0')*pow(16, j);
+
+                    else if (str[i]>='a'&&str[i]<='f')
+                        int_10+=(str[i]-'W')*pow(16, j);
+
+                    else if (str[i]>='A'&&str[i]<='F')
+                        int_10+=(str[i]-'7')*pow(16, j);
+
+                    else {
+                        //十六进制数不合法！！抛出异常
+                        throw invalic_number_exception(str);
+                    }
+                }
+            }
+                //八进制字符串
+            else {
+                str.erase(0, 1);
+                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
+                    //0x123->123
+                    if (str[i]>='0'&&str[i]<='7')
+                        int_10+=(str[i]-'0')*pow(8, j);
+                    else {
+                        //八进制数不合法！！抛出异常
+                        throw invalic_number_exception(str);
+                    }
+                }
+            }
+            this->negative=true;
+            while (int_10) {
+                this->digits.push_back(int_10%10);
+                int_10/=10;
+            }
+
+        } else {
+            //十进制字符串
+            this->negative=true;
+//            std::cout<<"进入负数十进制"<<std::endl;
+//            std::cout<<"str"<<str<<std::endl;
+            for (int i=str.size()-1; i>=0; i--) {
+                digits.push_back(str[i]-'0');
+            }
+        }
+    } else {
+        //字符串为正数
+        if (str[0]=='0') {
+            //十六进制或者八进制的字符串->转化为十进制的长整型
+            //十进制的长整型
+            long int int_10=0;
+            //十六进制字符串
+            if (str[1]=='x'||str[1]=='X') {
+//                std::cout<<"十六进制构造"<<std::endl;
+                str.erase(0, 2);
+//                std::cout<<str<<std::endl;
+                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
+                    //0x123->123
+                    if (str[i]>='0'&&str[i]<='9') {
+                        int_10+=(str[i]-'0')*pow(16, j);
+                        std::cout<<int_10<<std::endl;
+                    } else if (str[i]>='a'&&str[i]<='f') {
+                        int_10+=(str[i]-'W')*pow(16, j);
+                    }
+
+                    else if (str[i]>='A'&&str[i]<='F') {
+                        int_10+=(str[i]-'7')*pow(16, j);
+                    }
+
+                    else {
+                        //十六进制数不合法！！抛出异常
+                        throw invalic_number_exception(str);
+                    }
+                }
+            }
+                //八进制字符串
+            else {
+                str.erase(0, 1);
+                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
+                    if (str[i]>='0'&&str[i]<='7')
+                        int_10+=(str[i]-'0')*pow(8, j);
+                    else {
+                        //八进制数不合法！！抛出异常
+                        throw invalic_number_exception(str);
+                    }
+                }
+            }
+            this->negative=false;
+            while (int_10) {
+                this->digits.push_back(int_10%10);
+                int_10/=10;
+            }
+        } else {
+            this->negative=false;
+            for (int i=str.size()-1; i>=0; i--) {
+                digits.push_back(str[i]-'0');
+            }
+        }
+
+    }
+//    for (int i=0; i<digits.size(); i++) {
+//        std::cout<<digits[i];
+//    }
+//    std::cout<<std::endl;
+}

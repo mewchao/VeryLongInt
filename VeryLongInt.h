@@ -83,7 +83,7 @@ public:
     //用一个向量和正负号来构造
     VeryLongInt(std::vector<int> v, bool negative);
 
-    void print();
+    void print_decimal();
 
     void print_hexadecimal();
 
@@ -185,17 +185,17 @@ public:
 private:
     std::string m_message;
 };
-bool isHexadecimal(long int number);
+bool is_hexadecimal(long int number);
 
-bool isOctal(long int number);
+bool is_octal(long int number);
 
 std::string int_to_hex(long int num);
 
 std::string int_to_oct( long int num);
 
-long int hexadecimalToDecimal(long int hexadecimalNumber);
+long int hexadecimal_to_decimal(long int hexadecimalNumber);
 
-long int octalToDecimal(long int octalNumber);
+long int octal_to_decimal(long int octalNumber);
 
 void show_copyright();
 

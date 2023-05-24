@@ -2,141 +2,226 @@
 
 //字符串构造
 VeryLongInt::VeryLongInt(std::string str) {
-    //字符串为负数
+    //字符串为负数o
     if (str[0]=='-') {
         //去除负号
         str.erase(0, 1);
+
         if (str[0]=='0') {
-            //十六进制或者八进制的字符串->转化为十进制的长整型
-            //十进制的长整型
-            long int int_10=0;
+
+            //十六进制或者八进制的字符串->递推存入向量
+
             //十六进制字符串
+
             if (str[1]=='x'||str[1]=='X') {
+
                 str.erase(0, 2);
-                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
-                    //0x123->123
-                    if (str[i]>='0'&&str[i]<='9')
-                        int_10+=(str[i]-'0')*pow(16, j);
 
-                    else if (str[i]>='a'&&str[i]<='f')
-                        int_10+=(str[i]-'W')*pow(16, j);
+                VeryLongInt temp=1;
 
-                    else if (str[i]>='A'&&str[i]<='F')
-                        int_10+=(str[i]-'7')*pow(16, j);
+                VeryLongInt ans=0;
 
-                    else {
-                        //十六进制数不合法！！抛出异常
-                        throw invalic_number_exception(str);
+                for (int i=str.size()-1; i>=0; i--) {
+
+                    if ('0'<=str[i]&&str[i]<='9') {
+
+                        ans+=temp*(str[i]-'0');
+
+                    } else if ('a'<=str[i]&&str[i]<='f') {
+
+                        ans+=temp*(str[i]-'a'+10);
+
+                    } else if ('A'<=str[i]&&str[i]<='F') {
+
+                        ans+=temp*(str[i]-'A'+10);
+
+                    } else {
+                        //抛出十六进制异常
+                        throw;
                     }
+                    temp*=16;
                 }
+
+                *this=ans;
+
             }
                 //八进制字符串
             else {
+
                 str.erase(0, 1);
-                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
-                    //0x123->123
-                    if (str[i]>='0'&&str[i]<='7')
-                        int_10+=(str[i]-'0')*pow(8, j);
-                    else {
-                        //八进制数不合法！！抛出异常
-                        throw invalic_number_exception(str);
+
+                VeryLongInt temp=1;
+
+                VeryLongInt ans=0;
+
+                for (int i=str.size()-1; i>=0; i--) {
+
+                    if ('0'<=str[i]&&str[i]<'8') {
+
+                        ans+=temp*(str[i]-'0');
+
+                    } else {
+                        //抛出八进制异常
+                        throw;
                     }
+
+                    temp*=8;
                 }
+
+                *this=ans;
+
             }
             this->negative=true;
-            while (int_10) {
-                this->digits.push_back(int_10%10);
-                int_10/=10;
-            }
 
         } else {
-            //十进制字符串
-            this->negative=true;
-//            std::cout<<"进入负数十进制"<<std::endl;
-//            std::cout<<"str"<<str<<std::endl;
+
             for (int i=str.size()-1; i>=0; i--) {
+
                 digits.push_back(str[i]-'0');
+
             }
+            this->negative=true;
+
         }
+
     } else {
         //字符串为正数
         if (str[0]=='0') {
-            //十六进制或者八进制的字符串->转化为十进制的长整型
-            //十进制的长整型
-            long int int_10=0;
+
+            //十六进制或者八进制的字符串->递推存入向量
             //十六进制字符串
             if (str[1]=='x'||str[1]=='X') {
+
                 str.erase(0, 2);
-                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
-                    //0x123->123
-                    if (str[i]>='0'&&str[i]<='9')
-                        int_10+=(str[i]-'0')*pow(16, j);
 
-                    else if (str[i]>='a'&&str[i]<='f')
-                        int_10+=(str[i]-'W')*pow(16, j);
+                VeryLongInt temp=1;
 
-                    else if (str[i]>='A'&&str[i]<='F')
-                        int_10+=(str[i]-'7')*pow(16, j);
+                VeryLongInt ans=0;
 
-                    else {
-                        //十六进制数不合法！！抛出异常
-                        throw invalic_number_exception(str);
+                for (int i=str.size()-1; i>=0; i--) {
+
+                    if ('0'<=str[i]&&str[i]<='9') {
+
+                        ans+=temp*(str[i]-'0');
+
+                    } else if ('a'<=str[i]&&str[i]<='f') {
+
+                        ans+=temp*(str[i]-'a'+10);
+
+                    } else if ('A'<=str[i]&&str[i]<='F') {
+
+                        ans+=temp*(str[i]-'A'+10);
+
                     }
+                    temp*=16;
                 }
+
+                *this=ans;
             }
                 //八进制字符串
             else {
+
                 str.erase(0, 1);
-                for (int i=str.size()-1, j=0; i>=0; i--, j++) {
-                    if (str[i]>='0'&&str[i]<='7')
-                        int_10+=(str[i]-'0')*pow(8, j);
-                    else {
-                        //八进制数不合法！！抛出异常
-                        throw invalic_number_exception(str);
+
+                VeryLongInt temp=1;
+
+                VeryLongInt ans=0;
+
+                for (int i=str.size()-1; i>=0; i--) {
+
+                    if ('0'<=str[i]&&str[i]<'8') {
+
+                        ans+=temp*(str[i]-'0');
+
                     }
+
+                    temp*=8;
+
                 }
+
+                *this=ans;
+
             }
             this->negative=false;
-            while (int_10) {
-                this->digits.push_back(int_10%10);
-                int_10/=10;
-            }
+
         } else {
-            this->negative=false;
+
             for (int i=str.size()-1; i>=0; i--) {
+
                 digits.push_back(str[i]-'0');
+
             }
+
+            this->negative=false;
+
         }
 
     }
 }
 
-//十进制的长整形构造
+//长整形构造
 VeryLongInt::VeryLongInt(long int other) {
-    if(isOctal(other)){
-        other=octalToDecimal(other);
+    //判断长整型是否是八进制形式
+    if (is_octal(other)) {
+        //转化为十进制长整形
+        other=octal_to_decimal(other);
+
     }
-    if(isHexadecimal(other)){
-        other=hexadecimalToDecimal(other);
+    //判断长整型是否是十六进制形式
+    if (is_hexadecimal(other)) {
+        //转化为十进制长整形
+        other=hexadecimal_to_decimal(other);
+
     }
     if (other<0) {
+        //标记符号为负
         this->negative=true;
+
         other=-other;
+
     } else {
+        //标记符号为正
         this->negative=false;
+
     }
     while (other) {
+        //已经转化为十进制形式，逐步推入向量
         this->digits.push_back(other%10);
+
         other/=10;
+
     }
 }
 
+//判断是否是八进制形式的长整型
+bool is_octal(long int number) {
 
-bool isOctal(long int number) {
-    std::string strNumber = std::to_string(number);
-    if (strNumber.length() > 1 && strNumber[0] == '0') {
-        for (size_t i = 1; i < strNumber.length(); ++i) {
-            if (strNumber[i] < '0' || strNumber[i] > '7') {
+    std::string str_number=std::to_string(number);
+
+    if (str_number.length()>1&&str_number[0]=='0') {
+
+        for (size_t i=1; i<str_number.length(); ++i) {
+
+            if (str_number[i]<'0'||str_number[i]>'7') {
+
+                return false;
+
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+//判断是否是十六进制形式的长整型
+bool is_hexadecimal(long int number) {
+    std::string str_number=std::to_string(number);
+    if (str_number.length()>2&&str_number[0]=='0'&&
+        (str_number[1]=='x'||str_number[1]=='X')) {
+        for (size_t i=2; i<str_number.length(); ++i) {
+            if (!((str_number[i]>='0'&&str_number[i]<='9')||
+                  (str_number[i]>='A'&&str_number[i]<='F')||
+                  (str_number[i]>='a'&&str_number[i]<='f'))) {
                 return false;
             }
         }
@@ -145,34 +230,28 @@ bool isOctal(long int number) {
     return false;
 }
 
-bool isHexadecimal(long int number) {
-    std::string strNumber = std::to_string(number);
-    if (strNumber.length() > 2 && strNumber[0] == '0' &&
-        (strNumber[1] == 'x' || strNumber[1] == 'X')) {
-        for (size_t i = 2; i < strNumber.length(); ++i) {
-            if (!((strNumber[i] >= '0' && strNumber[i] <= '9') ||
-                  (strNumber[i] >= 'A' && strNumber[i] <= 'F') ||
-                  (strNumber[i] >= 'a' && strNumber[i] <= 'f'))) {
-                return false;
-            }
-        }
-        return true;
-    }
-    return false;
+//把八进制整形转化为十进制整形
+long int octal_to_decimal(long int octal_number) {
+
+    std::string str_octal=std::to_string(octal_number);
+
+    long int decimal_number=std::stol(str_octal, nullptr, 8);
+
+    return decimal_number;
 }
 
 
-long int octalToDecimal(long int octalNumber) {
-    std::string strOctal = std::to_string(octalNumber);
-    long int decimalNumber = std::stol(strOctal, nullptr, 8);
-    return decimalNumber;
+//把十六进制整形转化为十进制整形
+long int hexadecimal_to_decimal(long int hexadecimal_number) {
+
+    std::string str_hexadecimal=std::to_string(hexadecimal_number);
+
+    long int decimal_number=std::stol(str_hexadecimal, nullptr, 16);
+
+    return decimal_number;
 }
 
-long int hexadecimalToDecimal(long int hexadecimalNumber) {
-    std::string strHexadecimal = std::to_string(hexadecimalNumber);
-    long int decimalNumber = std::stol(strHexadecimal, nullptr, 16);
-    return decimalNumber;
-}
+
 
 //用一个向量和正负号来构造
 VeryLongInt::VeryLongInt(std::vector<int> v, bool negative) {
@@ -181,9 +260,8 @@ VeryLongInt::VeryLongInt(std::vector<int> v, bool negative) {
 }
 
 
-
 //按照十进制输出
-void VeryLongInt::print() {
+void VeryLongInt::print_decimal() {
     if (digits.empty()) {
         std::cout<<"0"<<std::endl;
         return;
@@ -198,7 +276,6 @@ void VeryLongInt::print() {
 }
 
 
-
 //按照十六进制输出
 void VeryLongInt::print_hexadecimal() {
     //存放十进制形式的结果->转化为十六进制
@@ -210,13 +287,22 @@ void VeryLongInt::print_hexadecimal() {
     if (negative) {
         std::cout<<"-";
     }
-    //123->321->123
-    for(int i=digits.size()-1;i>=0;i--){
-        temp=temp*10+digits[i];
-    }
-    std::cout << int_to_hex (temp) << std::endl;
-}
+    for (int i=digits.size()-1; i>=0; i--) {
 
+        temp=temp*10+digits[i];
+
+    }
+//    std::cout<<"temp:"<<temp<<std::endl;
+    std::string hex=int_to_hex(temp);
+    std::cout<<"hex:";
+    for (int i=1; i<=hex.size(); i++) {
+        std::cout<<hex[i-1];
+        if (i%4==0) {
+            std::cout<<" ";
+        }
+    }
+    std::cout<<std::endl;
+}
 
 
 //按照八进制输出
@@ -230,35 +316,34 @@ void VeryLongInt::print_octal() {
     if (negative) {
         std::cout<<"-";
     }
-    for(int i=digits.size()-1;i>=0;i--){
+    for (int i=digits.size()-1; i>=0; i--) {
         temp=temp*10+digits[i];
     }
-    std::cout << int_to_oct (temp) << std::endl;
+    std::string octal=int_to_oct(temp);
     std::cout<<std::endl;
 }
 
 
-
 //把长整型转化为十六进制字符串
-std::string int_to_hex( long int num) {
-    std::string hex_string;
-    const char* hexChars = "0123456789abcdef";
-    while (num > 0) {
-        int digit = num % 16;
-        hex_string = hexChars[digit] + hex_string;
-        num /= 16;
+std::string int_to_hex(long int num) {
+    std::string hex_string="";
+    const char *hexChars="0123456789abcdef";
+    while (num>0) {
+        int digit=num%16;
+        hex_string=hexChars[digit]+hex_string;
+        num/=16;
     }
     return hex_string;
 }
 
 //把长整型转化为八进制字符串
-std::string int_to_oct( long int num) {
+std::string int_to_oct(long int num) {
     std::string oct_string;
-    const char* hexChars = "01234567";
-    while (num > 0) {
-        int digit = num % 8;
-        oct_string = hexChars[digit] + oct_string;
-        num /= 8;
+    const char *hexChars="01234567";
+    while (num>0) {
+        int digit=num%8;
+        oct_string=hexChars[digit]+oct_string;
+        num/=8;
     }
     return oct_string;
 }
@@ -394,131 +479,128 @@ VeryLongInt VeryLongInt::operator*(const VeryLongInt &other) const {
 
 VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const {
     // 判断除数是否为零
-    if (other.digits.size() == 1 && other.digits[0] == 0) {
-        std::cerr << "Error: Division by zero" << std::endl;
+    if (other.digits.size()==1&&other.digits[0]==0) {
+        std::cerr<<"Error: Division by zero"<<std::endl;
         return VeryLongInt(""); // 返回一个默认的 VeryLongInt 对象
     }
 
     // 检查除数和被除数的位数大小关系
-    if (digits.size() < other.digits.size()) {
+    if (digits.size()<other.digits.size()) {
         return VeryLongInt(0); // 如果被除数小于除数，结果为0
     }
 
     // 初始化结果和临时被除数
-    int resultSize = digits.size() - other.digits.size() + 1;
+    int resultSize=digits.size()-other.digits.size()+1;
     std::vector<int> result(resultSize, 0);
     std::vector<int> temp(digits); // 临时被除数
 
     // 长除法的迭代计算
-    for (int i = resultSize - 1; i >= 0; --i) {
-        int q = 0; // 商
-        int tempSize = temp.size();
+    for (int i=resultSize-1; i>=0; --i) {
+        int q=0; // 商
+        int tempSize=temp.size();
 
         // 将临时被除数左移至与除数对齐
-        while (tempSize > other.digits.size()) {
+        while (tempSize>other.digits.size()) {
             --tempSize;
-            temp[tempSize] = temp[tempSize - 1];
+            temp[tempSize]=temp[tempSize-1];
         }
-        temp[tempSize] = digits[i + other.digits.size() - 1];
+        temp[tempSize]=digits[i+other.digits.size()-1];
 
         // 计算当前位的商
-        while (tempSize >= other.digits.size()) {
-            int t = temp[tempSize] / other.digits.back();
-            q = q * 10 + t;
+        while (tempSize>=other.digits.size()) {
+            int t=temp[tempSize]/other.digits.back();
+            q=q*10+t;
 
             // 更新临时被除数
-            for (int j = 0; j < other.digits.size(); ++j) {
-                temp[tempSize - j] -= t * other.digits[other.digits.size() - j - 1];
+            for (int j=0; j<other.digits.size(); ++j) {
+                temp[tempSize-j]-=t*other.digits[other.digits.size()-j-1];
             }
 
             --tempSize;
         }
 
         // 更新结果的当前位
-        result[i] = q;
+        result[i]=q;
     }
 
-    return VeryLongInt(result,negative);
+    return VeryLongInt(result, negative);
 }
-
-
 
 
 VeryLongInt VeryLongInt::operator%(const VeryLongInt &other) const {
     // 处理除数为0的情况
-    if (other == 0) {
+    if (other==0) {
         throw std::runtime_error("Divide by zero.");
     }
 
     // 如果被除数小于除数，则余数为被除数本身
-    if (*this < other) {
+    if (*this<other) {
         return *this;
     }
 
     // 使用Knuth算法进行大整数除法
-    VeryLongInt dividend = *this; // 被除数
+    VeryLongInt dividend=*this; // 被除数
 
-    int n = dividend.digits.size(); // 被除数的位数
-    int m = other.digits.size(); // 除数的位数
+    int n=dividend.digits.size(); // 被除数的位数
+    int m=other.digits.size(); // 除数的位数
 
     // 对被除数和除数进行标准化，使得除数的最高位为BASE
-    unsigned int d = BASE / (other.digits.back() + 1);
-    dividend *= d;
-    VeryLongInt normalizedDivisor = other * d;
+    unsigned int d=BASE/(other.digits.back()+1);
+    dividend*=d;
+    VeryLongInt normalizedDivisor=other*d;
 
-    for (int j = n - m; j >= 0; --j) {
+    for (int j=n-m; j>=0; --j) {
         // 估计商的当前位
-        int qt = (dividend.digits[j + m] * BASE + dividend.digits[j + m - 1]) / normalizedDivisor.digits.back();
-        int rt = (dividend.digits[j + m] * BASE + dividend.digits[j + m - 1]) % normalizedDivisor.digits.back();
+        int qt=(dividend.digits[j+m]*BASE+dividend.digits[j+m-1])/normalizedDivisor.digits.back();
+        int rt=(dividend.digits[j+m]*BASE+dividend.digits[j+m-1])%normalizedDivisor.digits.back();
 
         // 调整估计值，确保 qt <= BASE
-        while (qt > 0 && (qt * normalizedDivisor.digits[m - 2] > BASE * rt + dividend.digits[j + m - 2])) {
+        while (qt>0&&(qt*normalizedDivisor.digits[m-2]>BASE*rt+dividend.digits[j+m-2])) {
             --qt;
-            rt += normalizedDivisor.digits.back();
+            rt+=normalizedDivisor.digits.back();
         }
 
         // 将被除数减去除数的估计乘以除数
-        VeryLongInt tmp = normalizedDivisor * qt;
-        bool borrow = false;
+        VeryLongInt tmp=normalizedDivisor*qt;
+        bool borrow=false;
 
-        for (int i = 0; i < m; ++i) {
-            int diff = dividend.digits[j + i] - tmp.digits[i] - (borrow ? 1 : 0);
-            if (diff < 0) {
-                diff += BASE;
-                borrow = true;
+        for (int i=0; i<m; ++i) {
+            int diff=dividend.digits[j+i]-tmp.digits[i]-(borrow ? 1 : 0);
+            if (diff<0) {
+                diff+=BASE;
+                borrow=true;
             } else {
-                borrow = false;
+                borrow=false;
             }
-            dividend.digits[j + i] = diff;
+            dividend.digits[j+i]=diff;
         }
 
         if (borrow) {
-            int diff = dividend.digits[j + m] - 1;
-            if (diff < 0) {
-                diff += BASE;
-                borrow = true;
+            int diff=dividend.digits[j+m]-1;
+            if (diff<0) {
+                diff+=BASE;
+                borrow=true;
             } else {
-                borrow = false;
+                borrow=false;
             }
-            dividend.digits[j + m] = diff;
+            dividend.digits[j+m]=diff;
         }
     }
 
     // 去除余数前导零
-    while (!dividend.digits.empty() && dividend.digits.back() == 0) {
+    while (!dividend.digits.empty()&&dividend.digits.back()==0) {
         dividend.digits.pop_back();
     }
 
-    dividend.negative = negative;
+    dividend.negative=negative;
 
     // 如果余数为0，则设置其正负号为正
     if (dividend.digits.empty()) {
-        dividend.negative = false;
+        dividend.negative=false;
     }
 
     return dividend;
 }
-
 
 
 VeryLongInt VeryLongInt::operator+(const long int &other) const {
@@ -551,6 +633,7 @@ VeryLongInt VeryLongInt::operator-(const std::string &other) const {
     VeryLongInt other_int(other);
     return *this-other_int;
 }
+
 //先+1后返回
 VeryLongInt VeryLongInt::operator++() {
     *this+=1;
@@ -743,9 +826,10 @@ bool VeryLongInt::operator==(const VeryLongInt &other) const {
 }
 
 // 判断相等
-bool VeryLongInt::operator!=(const VeryLongInt &other) const{
+bool VeryLongInt::operator!=(const VeryLongInt &other) const {
     return !(negative==other.negative&&digits==other.digits);
 }
+
 // 输出到流
 std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
     if (num.digits.empty()) {
@@ -775,6 +859,7 @@ void show_time() {
     GetLocalTime(&now2);
     time_t now=time(0);
     tm *ltm=localtime(&now);
-    std::cout<<std::endl<<"        当前日期、时间 :"<<ltm->tm_year+1900<<"."<<1+ltm->tm_mon<<"."<<ltm->tm_mday<<" "<<ltm->tm_hour
-        <<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<"("<<week[now2.wDayOfWeek]<<") "<<std::endl;
+    std::cout<<std::endl<<"        当前日期、时间 :"<<ltm->tm_year+1900<<"."<<1+ltm->tm_mon<<"."<<ltm->tm_mday<<" "
+             <<ltm->tm_hour
+             <<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<"("<<week[now2.wDayOfWeek]<<") "<<std::endl;
 }
