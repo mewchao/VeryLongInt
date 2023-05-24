@@ -95,7 +95,23 @@ public:
     //用一个向量和正负号来构造
     VeryLongInt(std::vector<int> v, bool negative);
 
-    void print();
+    //输出到10进制
+    void print_decimal();
+
+    //输出到16进制
+    void print_hex();
+
+    //输出到8进制
+    void print_oct();
+
+    //输出到10进制
+    void print_decimal(std::ostream & os) const;
+
+    //输出到16进制
+    void print_hex(std::ostream & os) const;
+
+    //输出到8进制
+    void print_oct(std::ostream & os) const;
 
     // 取相反数
     VeryLongInt operator-() const;
@@ -124,19 +140,9 @@ public:
 
     VeryLongInt operator%=(const VeryLongInt &other);
 
-    friend std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
-        if (num.negative) os << "-";
-        for (int i = num.digits.size() - 1; i >= 0; i--) {
-            os << num.digits[i];
-        }
-        return os;
-    };
-    friend std::istream &operator>>(std::istream &is, VeryLongInt &num) {
-        std::string inputStr;
-        is >> inputStr;
-        num = VeryLongInt(inputStr);
-        return is;
-    }
+    friend std::ostream &operator<<(std::ostream &os, const VeryLongInt &num);
+
+    friend std::istream &operator>>(std::istream &is, VeryLongInt &num);
 
 
     //重载++(VeryLongInt)
@@ -157,11 +163,19 @@ public:
 
     VeryLongInt operator*(const long int &other) const;
 
+    VeryLongInt operator/(const long int &other) const;
+
+    VeryLongInt operator%(const long int &other) const;
+
     VeryLongInt operator+=(const long int &other);
 
     VeryLongInt operator-=(const long int &other);
 
     VeryLongInt operator*=(const long int &other);
+
+    VeryLongInt operator/=(const long int &other) ;
+
+    VeryLongInt operator%=(const long int &other) ;
 
     VeryLongInt operator+(const std::string &other) const;
 
@@ -169,11 +183,19 @@ public:
 
     VeryLongInt operator*(const std::string &other) const;
 
+    VeryLongInt operator/(const std::string &other) const;
+
+    VeryLongInt operator%(const std::string &other) const;
+
     VeryLongInt operator+=(const std::string &other);
 
     VeryLongInt operator-=(const std::string &other);
 
     VeryLongInt operator*=(const std::string &other);
+
+    VeryLongInt operator/=(const std::string &other) ;
+
+    VeryLongInt operator%=(const std::string &other);
 
     // 重载<
     bool operator<(const VeryLongInt &other) const;
@@ -196,11 +218,7 @@ public:
     // 输出到流
     friend std::ostream &operator<<(std::ostream &os, const VeryLongInt &num);
 
-    //输出到16进制
-    std::string toHex();
 
-    //输出到8进制
-    std::string toOct();
 
     // 输出赋值运算符的重载
     void operator<<=(std::ostream &os) const {
@@ -232,13 +250,19 @@ private:
     std::string m_message;
 };
 
-bool isHexadecimal(long int number);
+std::string convert_base(const std::string &number, int oldBase, int newBase);
 
-bool isOctal(long int number);
+std::string as_base(int number, int base);
 
-long int hexadecimalToDecimal(long int hexadecimalNumber);
+std::string convert_to_decimal(const std::vector<int> &digits);
 
-long int octalToDecimal(long int octalNumber);
+bool is_hexadecimal(long int number);
+
+bool is_octal(long int number);
+
+long int hexadecimal_to_decimal(long int hexadecimal_number);
+
+long int octal_to_decimal(long int octalNumber);
 
 void show_copyright();
 
