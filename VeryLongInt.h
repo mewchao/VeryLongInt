@@ -197,6 +197,9 @@ long int hexadecimal_to_decimal(long int hexadecimalNumber);
 
 long int octal_to_decimal(long int octalNumber);
 
+//十进制字符串转化为十六进制字符串
+std::string decimalToHexadecimal(const std::string& decimal);
+
 void show_copyright();
 
 void show_time();

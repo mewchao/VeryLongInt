@@ -287,22 +287,17 @@ void VeryLongInt::print_hexadecimal() {
     if (negative) {
         std::cout<<"-";
     }
-    for (int i=digits.size()-1; i>=0; i--) {
-
-        temp=temp*10+digits[i];
-
-    }
-//    std::cout<<"temp:"<<temp<<std::endl;
-    std::string hex=int_to_hex(temp);
-    std::cout<<"hex:";
-    for (int i=1; i<=hex.size(); i++) {
-        std::cout<<hex[i-1];
-        if (i%4==0) {
-            std::cout<<" ";
-        }
-    }
     std::cout<<std::endl;
 }
+
+
+//十进制字符串转化为十六进制字符串
+std::string decimalToHexadecimal(const std::string& decimal) {
+
+}
+
+
+
 
 
 //按照八进制输出
@@ -393,6 +388,54 @@ VeryLongInt VeryLongInt::operator+(const VeryLongInt &other) const {
         return *this-neg_other;
     }
 }
+//VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const {
+//    // 判断除数是否为零
+//    if (other.digits.size() == 1 && other.digits[0] == 0) {
+//        std::cerr << "Error: Division by zero" << std::endl;
+//        return VeryLongInt(""); // 返回一个默认的 VeryLongInt 对象
+//    }
+//
+//    // 检查除数和被除数的位数大小关系
+//    if (digits.size() < other.digits.size()) {
+//        return VeryLongInt(0); // 如果被除数小于除数，结果为0
+//    }
+//
+//    // 初始化结果和临时被除数
+//    int resultSize = digits.size() - other.digits.size() + 1;
+//    std::vector<int> result(resultSize, 0);
+//    std::vector<int> temp(digits); // 临时被除数
+//
+//    // 长除法的迭代计算
+//    for (int i = resultSize - 1; i >= 0; --i) {
+//        int q = 0; // 商
+//        int tempSize = temp.size();
+//
+//        // 将临时被除数左移至与除数对齐
+//        while (tempSize > other.digits.size()) {
+//            --tempSize;
+//            temp[tempSize] = temp[tempSize - 1];
+//        }
+//        temp[tempSize] = digits[i + other.digits.size() - 1];
+//
+//        // 计算当前位的商
+//        while (tempSize >= other.digits.size()) {
+//            int t = temp[tempSize] / other.digits.back();
+//            q = q * 10 + t;
+//
+//            // 更新临时被除数
+//            for (int j = 0; j < other.digits.size(); ++j) {
+//                temp[tempSize - j] -= t * other.digits[other.digits.size() - j - 1];
+//            }
+//
+//            --tempSize;
+//        }
+//
+//        // 更新结果的当前位
+//        result[i] = q;
+//    }
+//
+//    return VeryLongInt(result,negative!=other.negative);
+//}
 
 VeryLongInt VeryLongInt::operator-(const VeryLongInt &other) const {
     // 两个数字的正负性相同，直接相减
@@ -478,53 +521,56 @@ VeryLongInt VeryLongInt::operator*(const VeryLongInt &other) const {
 }
 
 VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const {
+
+
     // 判断除数是否为零
-    if (other.digits.size()==1&&other.digits[0]==0) {
-        std::cerr<<"Error: Division by zero"<<std::endl;
-        return VeryLongInt(""); // 返回一个默认的 VeryLongInt 对象
+    if (other.digits.size() == 1 && other.digits[0] == 0) {
+        std::cerr << "Error: Division by zero" << std::endl;
+        return VeryLongInt("0"); // 返回一个默认的 VeryLongInt 对象
     }
 
     // 检查除数和被除数的位数大小关系
-    if (digits.size()<other.digits.size()) {
-        return VeryLongInt(0); // 如果被除数小于除数，结果为0
+    if (digits.size() < other.digits.size()) {
+        return VeryLongInt("0"); // 如果被除数小于除数，结果为0
     }
 
     // 初始化结果和临时被除数
-    int resultSize=digits.size()-other.digits.size()+1;
+    int resultSize = digits.size() - other.digits.size() + 1;
     std::vector<int> result(resultSize, 0);
     std::vector<int> temp(digits); // 临时被除数
 
     // 长除法的迭代计算
-    for (int i=resultSize-1; i>=0; --i) {
-        int q=0; // 商
-        int tempSize=temp.size();
+    for (int i = resultSize - 1; i >= 0; --i) {
+        int q = 0; // 商
+        int tempSize = temp.size();
 
         // 将临时被除数左移至与除数对齐
-        while (tempSize>other.digits.size()) {
+        while (tempSize > other.digits.size()) {
             --tempSize;
-            temp[tempSize]=temp[tempSize-1];
+            temp[tempSize] = temp[tempSize - 1];
         }
-        temp[tempSize]=digits[i+other.digits.size()-1];
+        temp[tempSize] = digits[i + other.digits.size() - 1];
 
         // 计算当前位的商
-        while (tempSize>=other.digits.size()) {
-            int t=temp[tempSize]/other.digits.back();
-            q=q*10+t;
+        while (tempSize >= other.digits.size()) {
+            int t = temp[tempSize] / other.digits.back();
+            q = q * 10 + t;
 
             // 更新临时被除数
-            for (int j=0; j<other.digits.size(); ++j) {
-                temp[tempSize-j]-=t*other.digits[other.digits.size()-j-1];
+            for (int j = 0; j < other.digits.size(); ++j) {
+                temp[tempSize - j] -= t * other.digits[other.digits.size() - j - 1];
             }
 
             --tempSize;
         }
 
         // 更新结果的当前位
-        result[i]=q;
+        result[i] = q;
     }
 
     return VeryLongInt(result, negative);
 }
+
 
 
 VeryLongInt VeryLongInt::operator%(const VeryLongInt &other) const {
