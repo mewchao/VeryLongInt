@@ -1,3 +1,38 @@
+/*************************************************
+Copyright (C), 1988-1999, Tech. Co., Ltd.
+File name: // 文件名
+Author:
+Version:
+Date: // 作者、版本及完成日期
+Description: // 用于详细说明此程序文件完成的主要功能，与其他模块
+// 或函数的接口，输出值、取值范围、含义及参数间的控
+// 制、顺序、独立或依赖等关系
+Others: // 其它内容的说明
+Function List: // 主要函数列表，每条记录应包括函数名及功能简要说明
+1. ....
+History: // 修改历史记录列表，每条修改记录应包括修改日期、修改
+// 者及修改内容简述
+1. Date:
+Author:
+Modification:
+2. ...
+*************************************************/
+//3：源文件头部应进行注释，列出：版权说明、版本号、生成日期、作者、模块目的/功能、主要函数及其功能、修改日志等。
+//示例：下面这段源文件的头注释比较标准，当然，并不局限于此格式，但上述信息建议要包含在内。
+/************************************************************
+Copyright (C), 2023-2023, 游竣超., Ltd.
+FileName: VeryLongInt.h
+Author: 游竣超
+Version : 最新
+Date: 2023.5.25
+Description: Contains declarations of large integer c
+             lasses and member functions, declarations of ordinary functions
+Function List: // 主要函数及其功能
+1. -------
+History:
+<游竣超> <time> <version > <desc>
+David 96/10/12 1.0 build this moudle
+***********************************************************/
 #ifndef UNTITLED_VERYLONGINT_H
 #define UNTITLED_VERYLONGINT_H
 
