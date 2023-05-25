@@ -69,6 +69,7 @@ int main() {
     std::cout<<"verylongint10:"<<verylongint10;
     std::cout<<"verylongint11:"<<verylongint11;
     std::cout<<"verylongint12:"<<verylongint12;
+//    verylongint12.is_negative();
     std::cout<<"verylongint13:"<<verylongint13;
 
     system("pause");

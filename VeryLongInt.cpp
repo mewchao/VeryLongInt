@@ -49,9 +49,10 @@ VeryLongInt::VeryLongInt(std::string str) {
         *this=VeryLongInt(0);
         return;
     }
-
+    int flag=0;
     if (str[0]=='-') {
         str.erase(0, 1);
+        flag=1;
         this->negative=true;
     }
     else this->negative=false;
@@ -71,6 +72,7 @@ VeryLongInt::VeryLongInt(std::string str) {
             }
             std::string rts=convert_base(str, 16, 10);
             *this=VeryLongInt(rts);
+            if(flag)this->negative=true;
         } else { // Octal
             if (str[1]=='O'||str[1]=='o') {
                 str.erase(0, 2);
@@ -86,6 +88,7 @@ VeryLongInt::VeryLongInt(std::string str) {
             }
             std::string rts=convert_base(str, 8, 10);
             *this=VeryLongInt(rts);
+            if(flag)this->negative=true;
         }
     } else { // Decimal
         for (int i=str.size()-1; i>=0; i--) {
@@ -127,9 +130,9 @@ bool is_hexadecimal(long int number) {
 }
 
 
-long int octal_to_decimal(long int octalNumber) {
-    std::string strOctal=std::to_string(octalNumber);
-    long int decimal_number=std::stol(strOctal, nullptr, 8);
+long int octal_to_decimal(long int octal_number) {
+    std::string str_octal=std::to_string(octal_number);
+    long int decimal_number=std::stol(str_octal, nullptr, 8);
     return decimal_number;
 }
 
@@ -506,6 +509,9 @@ VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const {
     return quotient; // 返回商
 }
 
+
+
+
 VeryLongInt VeryLongInt::operator%(const VeryLongInt &other) const {
     // 判断被除数是否为零
     if (other==0) {
@@ -533,11 +539,13 @@ VeryLongInt VeryLongInt::operator%(const VeryLongInt &other) const {
     return remainder;
 }
 
+
 VeryLongInt VeryLongInt::operator+=(const VeryLongInt &other) {
     VeryLongInt other_int(other);
     *this=*this+other_int;
     return *this;
 }
+
 
 VeryLongInt VeryLongInt::operator-=(const VeryLongInt &other) {
     VeryLongInt other_int(other);

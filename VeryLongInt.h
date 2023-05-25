@@ -221,6 +221,14 @@ public:
 
     friend std::istream &operator>>(std::istream &is, VeryLongInt &num);
 
+    void is_negative(){
+        if(negative)
+            std::cout<<"is negative!"<<std::endl;
+        else{
+            std::cout<<"is not negative!"<<std::endl;
+        }
+    }
+
 
     //жиди++(VeryLongInt)
     VeryLongInt operator++();
