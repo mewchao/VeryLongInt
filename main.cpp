@@ -1,78 +1,70 @@
+/*************************************************
+Copyright (C), 2023-2023, 游竣超.
+FileName: main.cpp
+Author: 游竣超
+Version : 最新
+Date: 2023.5.25
+Description:
+Function List:
+Modification Log :first commit               2023.5.17
+                 完善加减法重载                 2023.5.18
+                 完善乘法除法重载和其他类型的op    2023.5.19
+                  修改了几个bug                2023.5.20
+                  增加了十六进制八进制的构造       2023.5.20
+                  增加了十六进制八进制的输出       2023.5.21
+                  修改了字符串构造的bug          2023.5.22
+                  fix                        2023.5.22
+                  程序功能完成                  2023.5.23
+                  重新格式化输出，格式化代码       2023.5.23
+                  完善注解                     2023.5.24
+                  完善main函数                 2023.5.24
+<游竣超> <2023.5.25> <latest > <main.cpp>
+***********************************************************/
 #include "VeryLongInt.h"
 
 
 int main() {
     show_copyright();
+    //一组测试数据的一个操作数为自己的18位身份证号码（最后一位如果为X用0取代），另一个操作数为自己的9位学号
     VeryLongInt verylongint1("350627200407240014");
-    verylongint1.print_decimal();
-    verylongint1.print_hex();
-    verylongint1.print_oct();
     VeryLongInt verylongint2("222200231");
-    verylongint2.print_decimal();
-    verylongint2.print_hex();
-    verylongint2.print_oct();
-    std::cout<<verylongint1<<verylongint2;
-
-
-
-//    std::cout << "int1+int2=" << int1 + int2 << std::endl;
-//    std::cout << "int1-int2=" << int1 - int2 << std::endl;//
-//    std::cout << "int2-int1=" << int2 - int1 << std::endl;
-//    std::cout << "int2*int1=" << int2 * int1 << std::endl;
-//    std::cout<<"int2*int1="<<int2/int1<<std::endl;
-//    std::cout<<"int2/int1="<<int2/int1<<std::endl;
-//    std::cout<<"int2%int1="<<int2%int1<<std::endl;
-//    std::cout << "int1   " << int1 << std::endl;
-//    std::cout << "int1++   " << int1++ << std::endl;
-//    std::cout << "int1   " << int1 << std::endl;
-//    std::cout << "++int1   " << ++int1 << std::endl;
-//    std::cout << "int1   " << int1 << std::endl;
-//    VeryLongInt int3("35062720286896758757828722004072675875782872240407240014");
-//    int3.print();
-//    VeryLongInt int4("3506758752028689675875778287226");
-//    int4.print();
-//    std::cout << "int3+int4=" << int3 + int4 << std::endl;
-//    std::cout << "int3-int4=" << int3 - int4 << std::endl;//
-//    std::cout << "int4-int3=" << int4 - int3 << std::endl;
-//    std::cout << "int3*int4=" << int3 * int4 << std::endl;
-//    std::cout << "int3/int4=" << int3 / int4 << std::endl;
-//    std::cout << "int3%int4=" << int3 % int4 << std::endl;
-//    std::cout << "test:" << int3.to_oct() << std::endl;
-//    std::cout << "test:" << int3.to_hex() << std::endl;
-//    VeryLongInt int5("0123");
-//    int5.print();
-//    VeryLongInt int6("-0456");
-//    int6.print();
-//    VeryLongInt int7("0x123");
-//    int7.print();
-//    VeryLongInt int8("-0x456");
-//    int8.print();
-//    std::cout<<"test1"<<VeryLongInt(213123213213324313)/VeryLongInt(3424234234)<<std::endl;
-//    std::cout<<"test2"<<VeryLongInt(213123213213324313)/VeryLongInt(-3424234234)<<std::endl;
-//    std::cout<<"test3"<<VeryLongInt("0x423423654747655761415557557614141e61414155576141415857f7754432")/VeryLongInt(-3424234234)<<std::endl;
-//    std::cout<<"test4"<<VeryLongInt("0x423423654747656557557614141ad1415857614655761414a25754432")%VeryLongInt(3424234234)<<std::endl;
-//
-//    std::cout  << std::endl;
-//    std::cout  << std::endl;
-//    std::cout  << std::endl;
-//    VeryLongInt int9("0x255989856255989856385625598985633633143145875968725598914587596872559898562559898558759687255989856255989856331458759687");
-//
-//    std::cout << "int9=" << int9 << std::endl;
-//
-//    VeryLongInt int10("0152165315457135614674161566514741617616147516");
-//    std::cout << "int9/int10 " << int9 /int10<< std::endl;
-//    std::cout << "int9%int10 " << int9 %int10<< std::endl;
-//
-//    std::cout  << std::endl;
-//    std::cout  << std::endl;
-//    std::cout  << std::endl;
-////	int9.print();
-//
-//    std::cout << "int9=" << int9 << std::endl;
-//    try {
-//        VeryLongInt int7("0x123");
-//    }
-//    CATCH_INVALID_NUMBER_EXCEPTION;
+    std::cout<<"verylongint1:"<<verylongint1<<"verylongint2:"<<verylongint2;
+    std::cout<<"verylongint1+verylongint2:"<<verylongint1+verylongint2;
+    std::cout<<"verylongint1-verylongint2:"<<verylongint1-verylongint2;
+    std::cout<<"verylongint1*verylongint2:"<<verylongint1*verylongint2;
+    std::cout<<"verylongint1/verylongint2:"<<verylongint1/verylongint2;
+    std::cout<<"verylongint1%verylongint2:"<<verylongint1%verylongint2;
+    //分页处理
     system("pause");
+    system("cls");
+    //一组2个操作数都正好是92位的数值
+    VeryLongInt verylongint3("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
+    VeryLongInt verylongint4("56893472983746329834763298476392746928374692837469283469283746928347692843769283746928374628");
+    std::cout<<"verylongint3:"<<verylongint3<<"verylongint4:"<<verylongint4;
+    std::cout<<"verylongint3+verylongint4:"<<verylongint3+verylongint4;
+    std::cout<<"verylongint3-verylongint4:"<<verylongint3-verylongint4;
+    std::cout<<"verylongint3*verylongint4:"<<verylongint3*verylongint4;
+    std::cout<<"verylongint3/verylongint4:"<<verylongint3/verylongint4;
+    std::cout<<"verylongint3%verylongint4:"<<verylongint3%verylongint4;
+    //分页处理
+    system("pause");
+    system("cls");
+    //default
+    long int long_int_max=LONG_MAX;
+    long int long_int_min=LONG_MIN;
+    VeryLongInt verylongint5(0);
+    std::cout<<"verylongint5:"<<verylongint5;
+//    VeryLongInt verylongint6("0o0");
+    VeryLongInt verylongint7("0x0");
+//    VeryLongInt verylongint8(long_int_max);
+//    VeryLongInt verylongint9("");
+//    VeryLongInt verylongint10("");
+//    VeryLongInt verylongint11(long_int_min);
+//    VeryLongInt verylongint12("");
+//    VeryLongInt verylongint13("");
+//    std::cout<<"verylongint9:"<<verylongint9<<"verylongint10:"<<verylongint10;
+//    std::cout<<"verylongint11:"<<verylongint11<<"verylongint12:"<<verylongint12;
+    system("pause");
+    system("cls");
     return 0;
 }
