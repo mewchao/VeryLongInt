@@ -1,4 +1,11 @@
 /*************************************************
+ *  class:02
+ *  id:   222200231
+ *  name: 游竣超
+ *  phone number:15059635473
+ *  email :2835190741@qq.com
+ *  开发环境：clion 2022版本和 github远程仓库连接
+ *  运行环境：CMake，一个跨平台的安装（编译）工具
 Copyright (C), 2023-2023, 游竣超.
 FileName: VeryLongInt.h
 Author: 游竣超
@@ -29,9 +36,7 @@ Modification Log :first commit               2023.5.17
                   重新格式化输出，格式化代码       2023.5.23
                   完善注解                     2023.5.24
                   完善main函数                 2023.5.24
-<游竣超> <2023.5.25> <latest > <VeryLongInt.h>
-
- 个人信息(班级、学号、姓名、电话、邮件地址等)、描述程序中采用的主要算法和数据结构、开发环境和运行环境、输入限制和输出说明、参考文献、版权、其他需说明的问题
+<游竣超> <2023.5.25> <latest > <VeryLongInt.h>题
 ***********************************************************/
 #ifndef UNTITLED_VERYLONGINT_H
 #define UNTITLED_VERYLONGINT_H
@@ -137,17 +142,26 @@ Modification Log :first commit               2023.5.17
 catch (invalic_number_exception & ex) {\
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);\
 SetConsoleTextAttribute(hConsole, 4);  \
-std::cout<<ex.get()<<ex.what();     }
+std::cout<<ex.get()<<ex.what()<<std::endl;     }
 #endif //CATCH_INVALID_NUMBER_EXCEPTION
 
 //捕获除以0错
 #ifndef CATCH_INVALID_DIVISION
 #define CATCH_INVALID_DIVISION \
-catch (invalid_argument & ex) {\
+catch (std::invalid_argument & ex) {\
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);\
 SetConsoleTextAttribute(hConsole, 4);             \
-std::cout<<ex.what();     }
+std::cout<<ex.what()<<std::endl;     }
 #endif //CATCH_INVALID_DIVISION
+
+//捕获模以0错
+#ifndef CATCH_INVALID_MOD
+#define CATCH_INVALID_MOD \
+catch (std::invalid_argument & ex) {\
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);\
+SetConsoleTextAttribute(hConsole, 4);             \
+std::cout<<ex.get()<<std::endl;     }
+#endif //CATCH_INVALID_MOD
 
 
 const int BASE=10;
@@ -285,6 +299,18 @@ public:
     VeryLongInt operator/=(const std::string &other);
 
     VeryLongInt operator%=(const std::string &other);
+    // 重载<
+    bool operator<(const std::string &other) const;
+
+    //重载>
+    bool operator>(const std::string &other) const;
+
+    //重载>=
+    bool operator>=(const std::string &other) const;
+
+    //重载<=
+    bool operator<=(const std::string &other) const;
+
 
 //===========================================逻辑运算符==============================
     // 重载<

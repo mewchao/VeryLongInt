@@ -44,6 +44,7 @@ VeryLongInt::VeryLongInt(long long other) {
 
 //用各种进制的字符串构造巨型整数类
 VeryLongInt::VeryLongInt(std::string str) {
+    std::string temp=str;
     //default
     if (str==""||str=="0") {
         *this=VeryLongInt(0);
@@ -54,8 +55,7 @@ VeryLongInt::VeryLongInt(std::string str) {
         str.erase(0, 1);
         flag=1;
         this->negative=true;
-    }
-    else this->negative=false;
+    } else this->negative=false;
     if (str[0]=='0') {
         if (str[1]=='x'||str[1]=='X') { // Hexadecimal
             str.erase(0, 2);
@@ -68,11 +68,11 @@ VeryLongInt::VeryLongInt(std::string str) {
                 else if (str[i]>='A'&&str[i]<='F')
                     hex_digit=(str[i]-'A'+10);
                 else
-                    throw invalic_number_exception(str);
+                    throw invalic_number_exception(temp);
             }
             std::string rts=convert_base(str, 16, 10);
             *this=VeryLongInt(rts);
-            if(flag)this->negative=true;
+            if (flag)this->negative=true;
         } else { // Octal
             if (str[1]=='O'||str[1]=='o') {
                 str.erase(0, 2);
@@ -84,16 +84,16 @@ VeryLongInt::VeryLongInt(std::string str) {
                 if (str[i]>='0'&&str[i]<'8')
                     hex_digit=(str[i]-'0');
                 else
-                    throw invalic_number_exception(str);
+                    throw invalic_number_exception(temp);
             }
             std::string rts=convert_base(str, 8, 10);
             *this=VeryLongInt(rts);
-            if(flag)this->negative=true;
+            if (flag)this->negative=true;
         }
     } else { // Decimal
         for (int i=str.size()-1; i>=0; i--) {
             if (str[i]<'0'||str[i]>'9')
-                throw invalic_number_exception(str);
+                throw invalic_number_exception(temp);
             digits.push_back(str[i]-'0');
         }
     }
@@ -510,13 +510,11 @@ VeryLongInt VeryLongInt::operator/(const VeryLongInt &other) const {
 }
 
 
-
-
 VeryLongInt VeryLongInt::operator%(const VeryLongInt &other) const {
     // 判断被除数是否为零
     if (other==0) {
         // 抛出异常或进行错误处理
-        throw invalic_number_exception("除数不能为0");
+        throw std::invalid_argument("模数不能为0");
     }
 
     // 将被除数转换为绝对值，并将其存储在临时变量abs_dividend中
@@ -912,6 +910,32 @@ bool VeryLongInt::operator==(const VeryLongInt &other) const {
 bool VeryLongInt::operator!=(const VeryLongInt &other) const {
     return !(negative==other.negative&&digits==other.digits);
 }
+
+
+
+bool VeryLongInt::operator<(const std::string &other) const{
+    VeryLongInt temp(other);
+    return *this<temp;
+}
+
+//重载>
+bool VeryLongInt::operator>(const std::string &other) const{
+    VeryLongInt temp(other);
+    return *this>temp;
+}
+
+//重载>=
+bool VeryLongInt::operator>=(const std::string &other) const{
+    VeryLongInt temp(other);
+    return *this>=temp;
+}
+
+//重载<=
+bool VeryLongInt::operator<=(const std::string &other) const{
+    VeryLongInt temp(other);
+    return *this<=temp;
+}
+
 //============================================重载逻辑运算符结束==============================
 
 //===========================================================字符版权函数==============================================================
