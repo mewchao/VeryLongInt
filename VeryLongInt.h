@@ -195,6 +195,7 @@ public:
 
     VeryLongInt Negative() const;
 
+//============================================任意长整数类op任意长整数类==============================
     VeryLongInt operator+(const VeryLongInt &other) const;
 
     VeryLongInt operator-(const VeryLongInt &other) const;
@@ -216,7 +217,7 @@ public:
     VeryLongInt operator/=(const VeryLongInt &other);
 
     VeryLongInt operator%=(const VeryLongInt &other);
-
+//===========================================================重载<< >>==============================================================
     friend std::ostream &operator<<(std::ostream &os, const VeryLongInt &num);
 
     friend std::istream &operator>>(std::istream &is, VeryLongInt &num);
@@ -242,6 +243,7 @@ public:
     //重载(VeryLongInt)--
     VeryLongInt operator--(int);
 
+//============================================任意长整数类op长整数==============================
     VeryLongInt operator+(const long int &other) const;
 
     VeryLongInt operator-(const long int &other) const;
@@ -261,6 +263,8 @@ public:
     VeryLongInt operator/=(const long int &other);
 
     VeryLongInt operator%=(const long int &other);
+
+//============================================任意长整数类op字符串==============================
 
     VeryLongInt operator+(const std::string &other) const;
 
@@ -282,6 +286,7 @@ public:
 
     VeryLongInt operator%=(const std::string &other);
 
+//===========================================逻辑运算符==============================
     // 重载<
     bool operator<(const VeryLongInt &other) const;
 
@@ -300,16 +305,9 @@ public:
     // 判断相等
     bool operator!=(const VeryLongInt &other) const;
 
-    // 输出到流
-    friend std::ostream &operator<<(std::ostream &os, const VeryLongInt &num);
 
 
-    // 输出赋值运算符的重载
-    void operator<<=(std::ostream &os) const {
-        os<<*this;
-    }
-
-    static VeryLongInt halve(const VeryLongInt &num) {
+static VeryLongInt halve(const VeryLongInt &num) {
         VeryLongInt result(num);
         int carry=0;
         for (int i=num.digits.size()-1; i>=0; i--) {
@@ -332,6 +330,7 @@ public:
 
 private:
     std::string m_message;
+
 };
 
 std::string convert_base(const std::string &number, int oldBase, int newBase);
