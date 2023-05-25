@@ -21,6 +21,7 @@ Modification Log :first commit               2023.5.17
 <游竣超> <2023.5.25> <latest > <VeryLongInt.cpp>
 ***********************************************************/
 # include "VeryLongInt.h"
+
 //十进制的长整形构造
 VeryLongInt::VeryLongInt(long long other) {
     if (is_octal(other)) {
@@ -44,20 +45,19 @@ VeryLongInt::VeryLongInt(long long other) {
 //用各种进制的字符串构造巨型整数类
 VeryLongInt::VeryLongInt(std::string str) {
     //default
-    if(str==""){
+    if (str==""||str=="0") {
         *this=VeryLongInt(0);
+        return;
     }
 
     if (str[0]=='-') {
         str.erase(0, 1);
         this->negative=true;
     }
-
+    else this->negative=false;
     if (str[0]=='0') {
         if (str[1]=='x'||str[1]=='X') { // Hexadecimal
             str.erase(0, 2);
-
-
             for (int i=str.size()-1; i>=0; i--) {
                 int hex_digit;
                 if (str[i]>='0'&&str[i]<='9')
@@ -72,7 +72,11 @@ VeryLongInt::VeryLongInt(std::string str) {
             std::string rts=convert_base(str, 16, 10);
             *this=VeryLongInt(rts);
         } else { // Octal
-            str.erase(0, 1);
+            if (str[1]=='O'||str[1]=='o') {
+                str.erase(0, 2);
+            } else {
+                str.erase(0, 1);
+            }
             for (int i=str.size()-1; i>=0; i--) {
                 int hex_digit;
                 if (str[i]>='0'&&str[i]<'8')
@@ -143,6 +147,7 @@ VeryLongInt::VeryLongInt(std::vector<int> v, bool negative) {
 
 //输出十进制
 void VeryLongInt::print_decimal() {
+    if (negative)std::cout<<"-";
     std::cout<<"decimal: ";
     if (digits.empty()) {
         std::cout<<"0"<<std::endl;
@@ -171,6 +176,7 @@ void VeryLongInt::print_decimal() {
 
 //输出十六进制
 void VeryLongInt::print_hex() {
+    if (negative)std::cout<<"-";
     std::cout<<"hex: ";
     auto number_str=convert_to_decimal(digits);
     std::string hex=convert_base(number_str, 10, 16);
@@ -192,9 +198,10 @@ void VeryLongInt::print_hex() {
 
 //输出八进制
 void VeryLongInt::print_oct() {
+    if (negative)std::cout<<"-";
     std::cout<<"oct: ";
     auto number_str=convert_to_decimal(digits);
-    std::string oct =convert_base(number_str, 10, 8);
+    std::string oct=convert_base(number_str, 10, 8);
     oct="0o"+oct;
     int size=oct.size()%4;
     int flag=1;
@@ -213,7 +220,7 @@ void VeryLongInt::print_oct() {
 
 
 //输出十进制
-void VeryLongInt::print_decimal(std::ostream &os) const{
+void VeryLongInt::print_decimal(std::ostream &os) const {
     if (digits.empty()) {
         os<<"0"<<std::endl;
         return;
@@ -239,7 +246,14 @@ void VeryLongInt::print_decimal(std::ostream &os) const{
 
 
 //输出十六进制
-void VeryLongInt::print_hex(std::ostream & os) const{
+void VeryLongInt::print_hex(std::ostream &os) const {
+    if (digits.empty()) {
+        os<<"0x0"<<std::endl;
+        return;
+    }
+    if (negative) {
+        os<<"-";
+    }
     auto number_str=convert_to_decimal(digits);
     std::string hex=convert_base(number_str, 10, 16);
     hex="0X"+hex;
@@ -260,9 +274,16 @@ void VeryLongInt::print_hex(std::ostream & os) const{
 
 
 //输出八进制
-void VeryLongInt::print_oct(std::ostream & os) const{
+void VeryLongInt::print_oct(std::ostream &os) const {
+    if (digits.empty()) {
+        os<<"0o0"<<std::endl;
+        return;
+    }
+    if (negative) {
+        os<<"-";
+    }
     auto number_str=convert_to_decimal(digits);
-    std::string oct =convert_base(number_str, 10, 8);
+    std::string oct=convert_base(number_str, 10, 8);
     oct="0o"+oct;
     int size=oct.size()%4;
     int flag=1;
@@ -284,7 +305,7 @@ void VeryLongInt::print_oct(std::ostream & os) const{
 std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
     //Windows API中的SetConsoleTextAttribute函数来设置输出颜色。
     //具体来说，GetStdHandle(STD_OUTPUT_HANDLE)获取标准输出句柄，然后将其传递给SetConsoleTextAttribute函数以设置输出颜色。
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
     os<<std::endl;
     SetConsoleTextAttribute(hConsole, 15);
     os<<"decimal: ";
@@ -627,7 +648,6 @@ std::string convert_to_decimal(const std::vector<int> &digits) {
 }
 
 
-
 //============================================任意长整数类op长整数=======================
 VeryLongInt VeryLongInt::operator+(const long int &other) const {
     VeryLongInt other_int(other);
@@ -889,7 +909,7 @@ bool VeryLongInt::operator!=(const VeryLongInt &other) const {
 //===========================================================字符版权函数==============================================================
 //显示时间显示版权的菜单
 void show_copyright() {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 4);
     std::cout<<std::endl<<"    ---Copyright---(c++) 2023-2023 游竣超(222200231). All Rights Reserved.---    ";
     std::cout<<std::endl;

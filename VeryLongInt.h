@@ -150,8 +150,6 @@ std::cout<<ex.what();     }
 #endif //CATCH_INVALID_DIVISION
 
 
-
-
 const int BASE=10;
 
 class VeryLongInt {
