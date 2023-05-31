@@ -45,7 +45,10 @@ Modification Log :first commit               2023.5.17
 #define IOSTREAM
 
 #include <iostream>
-
+using std::cout;
+using std::endl;
+using std::cin;
+using std::string;
 #endif // IOSTREAM_H
 
 
@@ -207,7 +210,14 @@ public:
     // 取相反数
     VeryLongInt operator-() const;
 
+    //取相反值
     VeryLongInt Negative() const;
+
+    //获取长度
+    int get_length() const;
+
+    //重载下标运算符
+    int  operator[](int num) const;
 
 //============================================任意长整数类op任意长整数类==============================
     VeryLongInt operator+(const VeryLongInt &other) const;

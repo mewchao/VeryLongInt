@@ -34,9 +34,13 @@ int main() {
     VeryLongInt verylongint2("222200231");
 
     verylongint1=VeryLongInt("56893472983746329834763298476392746928374692837469283469283746928347692843769283746928374628");
-    std::cout<<"verylongint1"<<verylongint1<<std::endl;
+    cout<<"verylongint1[5]"<<verylongint1[5]<<endl;
+    cout<<"verylongint1.getlength():"<<verylongint1.get_length()<<endl;
+
+
+    cout<<"verylongint1"<<verylongint1<<endl;
     verylongint1=VeryLongInt("56893472983746329834763298476392746928374692837469283469283746928347692843769283746928374628");
-    std::cout<<"verylongint1"<<-verylongint1<<std::endl;
+    cout<<"verylongint1"<<-verylongint1<<endl;
     system("pause");
     system("cls");
 
@@ -60,25 +64,25 @@ int main() {
     }
     CATCH_INVALID_NUMBER_EXCEPTION;
 
-    std::cout<<"verylongint1+\"0\""<<verylongint1+"0"<<std::endl;
-    std::cout<<"verylongint1-\"0\""<<verylongint1-"0"<<std::endl;
-    std::cout<<"verylongint1*\"0\""<<verylongint1*"0"<<std::endl;
+    cout<<"verylongint1+\"0\""<<verylongint1+"0"<<endl;
+    cout<<"verylongint1-\"0\""<<verylongint1-"0"<<endl;
+    cout<<"verylongint1*\"0\""<<verylongint1*"0"<<endl;
     system("pause");
     system("cls");
 
 
     verylongint1=VeryLongInt("56893472983746329834763298476392746928374692837469283469283746928347692843769283746928374628");
-    std::cout<<"verylongint1++"<<verylongint1++<<std::endl;
-    std::cout<<"verylongint1"<<verylongint1<<std::endl;
+    cout<<"verylongint1++"<<verylongint1++<<endl;
+    cout<<"verylongint1"<<verylongint1<<endl;
     verylongint1=VeryLongInt("56893472983746329834763298476392746928374692837469283469283746928347692843769283746928374628");
-    std::cout<<"++verylongint1"<<++verylongint1<<std::endl;
-    std::cout<<"verylongint1"<<verylongint1<<std::endl;
+    cout<<"++verylongint1"<<++verylongint1<<endl;
+    cout<<"verylongint1"<<verylongint1<<endl;
     verylongint1=VeryLongInt("56893472983746329834763298476392746928374692837469283469283746928347692843769283746928374628");
-    std::cout<<"verylongint1--"<<verylongint1--<<std::endl;
-    std::cout<<"verylongint1"<<verylongint1<<std::endl;
+    cout<<"verylongint1--"<<verylongint1--<<endl;
+    cout<<"verylongint1"<<verylongint1<<endl;
     verylongint1=VeryLongInt("56893472983746329834763298476392746928374692837469283469283746928347692843769283746928374628");
-    std::cout<<"--verylongint1"<<--verylongint1<<std::endl;
-    std::cout<<"verylongint1"<<verylongint1<<std::endl;
+    cout<<"--verylongint1"<<--verylongint1<<endl;
+    cout<<"verylongint1"<<verylongint1<<endl;
 
 
 
@@ -89,18 +93,18 @@ int main() {
     system("cls");
 
 
-    if(verylongint1>verylongint2)std::cout<<"verylongint1>verylongint2"<<std::endl;
-    else std::cout<<"verylongint1<=verylongint2"<<std::endl;
-    if(verylongint1<verylongint2)std::cout<<"verylongint1<verylongint2"<<std::endl;
-    else std::cout<<"verylongint1>=verylongint2"<<std::endl;
-    if(verylongint1>=verylongint2)std::cout<<"verylongint1>=verylongint2"<<std::endl;
-    else std::cout<<"verylongint1<verylongint2"<<std::endl;
-    if(verylongint1<=verylongint2)std::cout<<"verylongint1<=verylongint2"<<std::endl;
-    else std::cout<<"verylongint1>verylongint2"<<std::endl;
-    if(verylongint1==verylongint2)std::cout<<"verylongint1==verylongint2"<<std::endl;
-    else std::cout<<"verylongint1!=verylongint2"<<std::endl;
-    if(verylongint1!=verylongint2)std::cout<<"verylongint1!=verylongint2"<<std::endl;
-    else std::cout<<"verylongint1==verylongint2"<<std::endl;
+    if(verylongint1>verylongint2)cout<<"verylongint1>verylongint2"<<endl;
+    else cout<<"verylongint1<=verylongint2"<<endl;
+    if(verylongint1<verylongint2)cout<<"verylongint1<verylongint2"<<endl;
+    else cout<<"verylongint1>=verylongint2"<<endl;
+    if(verylongint1>=verylongint2)cout<<"verylongint1>=verylongint2"<<endl;
+    else cout<<"verylongint1<verylongint2"<<endl;
+    if(verylongint1<=verylongint2)cout<<"verylongint1<=verylongint2"<<endl;
+    else cout<<"verylongint1>verylongint2"<<endl;
+    if(verylongint1==verylongint2)cout<<"verylongint1==verylongint2"<<endl;
+    else cout<<"verylongint1!=verylongint2"<<endl;
+    if(verylongint1!=verylongint2)cout<<"verylongint1!=verylongint2"<<endl;
+    else cout<<"verylongint1==verylongint2"<<endl;
 
     system("pause");
     system("cls");
@@ -110,21 +114,21 @@ int main() {
 
 
     //任意长整数op任意长整形
-    std::cout<<"verylongint1:"<<verylongint1<<"verylongint2:"<<verylongint2;
-    std::cout<<"verylongint1+=verylongint2:"<<verylongint1;
-    std::cout<<"verylongint1-=verylongint2:"<<verylongint1;
-    std::cout<<"verylongint1*=verylongint2:"<<verylongint1;
-    std::cout<<"verylongint1/=verylongint2:"<<verylongint1;
-    std::cout<<"verylongint1%=verylongint2:"<<verylongint1;
+    cout<<"verylongint1:"<<verylongint1<<"verylongint2:"<<verylongint2;
+    cout<<"verylongint1+=verylongint2:"<<verylongint1;
+    cout<<"verylongint1-=verylongint2:"<<verylongint1;
+    cout<<"verylongint1*=verylongint2:"<<verylongint1;
+    cout<<"verylongint1/=verylongint2:"<<verylongint1;
+    cout<<"verylongint1%=verylongint2:"<<verylongint1;
     //分页处理
     system("pause");
     system("cls");
 
-    verylongint1=VeryLongInt("350627200407240014"); verylongint1+=verylongint2; std::cout<<"verylongint1+=verylongint2:"<<verylongint1;
-    verylongint1=VeryLongInt("350627200407240014"); verylongint1-=verylongint2; std::cout<<"verylongint1-=verylongint2:"<<verylongint1;
-    verylongint1=VeryLongInt("350627200407240014"); verylongint1*=verylongint2; std::cout<<"verylongint1*=verylongint2:"<<verylongint1;
-    verylongint1=VeryLongInt("350627200407240014"); verylongint1/=verylongint2; std::cout<<"verylongint1/=verylongint2:"<<verylongint1;
-    verylongint1=VeryLongInt("350627200407240014"); verylongint1%=verylongint2; std::cout<<"verylongint1%=verylongint2:"<<verylongint1;
+    verylongint1=VeryLongInt("350627200407240014"); verylongint1+=verylongint2; cout<<"verylongint1+=verylongint2:"<<verylongint1;
+    verylongint1=VeryLongInt("350627200407240014"); verylongint1-=verylongint2; cout<<"verylongint1-=verylongint2:"<<verylongint1;
+    verylongint1=VeryLongInt("350627200407240014"); verylongint1*=verylongint2; cout<<"verylongint1*=verylongint2:"<<verylongint1;
+    verylongint1=VeryLongInt("350627200407240014"); verylongint1/=verylongint2; cout<<"verylongint1/=verylongint2:"<<verylongint1;
+    verylongint1=VeryLongInt("350627200407240014"); verylongint1%=verylongint2; cout<<"verylongint1%=verylongint2:"<<verylongint1;
 
 
 
@@ -138,110 +142,110 @@ int main() {
 
 
     //任意长整数op字符串
-    std::cout<<"verylongint1+\"0x124896819ab4879498e4f8c8948aef\""<<verylongint1+"0x124896819ab4879498e4f8c8948aef";
-    std::cout<<"verylongint1-\"0x124896819ab4879498e4f8c8948aef\":"<<verylongint1-"0x124896819ab4879498e4f8c8948aef";
-    std::cout<<"verylongint1*\"0x124896819ab4879498e4f8c8948aef\":"<<verylongint1*"0x124896819ab4879498e4f8c8948aef";
-    std::cout<<"verylongint1/\"0x124896819ab4879498e4f8c8948aef\":"<<verylongint1/"0x124896819ab4879498e4f8c8948aef";
-    std::cout<<"verylongint1%\"0x124896819ab4879498e4f8c8948aef\":"<<verylongint1%"0x124896819ab4879498e4f8c8948aef";
+    cout<<"verylongint1+\"0x124896819ab4879498e4f8c8948aef\""<<verylongint1+"0x124896819ab4879498e4f8c8948aef";
+    cout<<"verylongint1-\"0x124896819ab4879498e4f8c8948aef\":"<<verylongint1-"0x124896819ab4879498e4f8c8948aef";
+    cout<<"verylongint1*\"0x124896819ab4879498e4f8c8948aef\":"<<verylongint1*"0x124896819ab4879498e4f8c8948aef";
+    cout<<"verylongint1/\"0x124896819ab4879498e4f8c8948aef\":"<<verylongint1/"0x124896819ab4879498e4f8c8948aef";
+    cout<<"verylongint1%\"0x124896819ab4879498e4f8c8948aef\":"<<verylongint1%"0x124896819ab4879498e4f8c8948aef";
 
     system("pause");
     system("cls");
     //一组2个操作数都正好是92位的数值
     VeryLongInt verylongint3("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     VeryLongInt verylongint4("56893472983746329834763298476392746928374692837469283469283746928347692843769283746928374628");
-    std::cout<<"verylongint3:"<<verylongint3<<"verylongint4:"<<verylongint4;
-    std::cout<<"verylongint3+verylongint4:"<<verylongint3+verylongint4;
-    std::cout<<"verylongint3-verylongint4:"<<verylongint3-verylongint4;
-    std::cout<<"verylongint3*verylongint4:"<<verylongint3*verylongint4;
-    std::cout<<"verylongint3/verylongint4:"<<verylongint3/verylongint4;
-    std::cout<<"verylongint3%verylongint4:"<<verylongint3%verylongint4;
+    cout<<"verylongint3:"<<verylongint3<<"verylongint4:"<<verylongint4;
+    cout<<"verylongint3+verylongint4:"<<verylongint3+verylongint4;
+    cout<<"verylongint3-verylongint4:"<<verylongint3-verylongint4;
+    cout<<"verylongint3*verylongint4:"<<verylongint3*verylongint4;
+    cout<<"verylongint3/verylongint4:"<<verylongint3/verylongint4;
+    cout<<"verylongint3%verylongint4:"<<verylongint3%verylongint4;
     //分页处理
     system("pause");
     system("cls");
 
-    std::cout<<"verylongint3+123456789L:"<<verylongint3+123456789L;
-    std::cout<<"verylongint3-123456789L:"<<verylongint3-123456789L;
-    std::cout<<"verylongint3*123456789L:"<<verylongint3*123456789L;
-    std::cout<<"verylongint3/123456789L:"<<verylongint3/123456789L;
-    std::cout<<"verylongint3%123456789L:"<<verylongint3%123456789L;
+    cout<<"verylongint3+123456789L:"<<verylongint3+123456789L;
+    cout<<"verylongint3-123456789L:"<<verylongint3-123456789L;
+    cout<<"verylongint3*123456789L:"<<verylongint3*123456789L;
+    cout<<"verylongint3/123456789L:"<<verylongint3/123456789L;
+    cout<<"verylongint3%123456789L:"<<verylongint3%123456789L;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3+=123456789L;
-    std::cout<<"verylongint3+=123456789L:"<<verylongint3;
+    cout<<"verylongint3+=123456789L:"<<verylongint3;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3-=123456789L;
-    std::cout<<"verylongint3-=123456789L:"<<verylongint3;
+    cout<<"verylongint3-=123456789L:"<<verylongint3;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3*=123456789L;
-    std::cout<<"verylongint3*=123456789L:"<<verylongint3;
+    cout<<"verylongint3*=123456789L:"<<verylongint3;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3/=123456789L;
-    std::cout<<"verylongint3/=123456789L:"<<verylongint3;
+    cout<<"verylongint3/=123456789L:"<<verylongint3;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3%=123456789L;
-    std::cout<<"verylongint3%=123456789L:"<<verylongint3;
+    cout<<"verylongint3%=123456789L:"<<verylongint3;
 
 
-    if(verylongint3>123456789L)std::cout<<"verylongint3>123456789L"<<std::endl;
-    else std::cout<<"verylongint3<=123456789L"<<std::endl;
-    if(verylongint3<123456789L)std::cout<<"verylongint3<123456789L"<<std::endl;
-    else std::cout<<"verylongint3>=123456789L"<<std::endl;
-    if(verylongint3>=123456789L)std::cout<<"verylongint3>=123456789L"<<std::endl;
-    else std::cout<<"verylongint3<123456789L"<<std::endl;
-    if(verylongint3<=123456789L)std::cout<<"verylongint3<=123456789L"<<std::endl;
-    else std::cout<<"verylongint3>123456789L"<<std::endl;
-    if(verylongint3==123456789L)std::cout<<"verylongint3==123456789L"<<std::endl;
-    else std::cout<<"verylongint3!=123456789L"<<std::endl;
-    if(verylongint3!=123456789L)std::cout<<"verylongint3!=123456789L"<<std::endl;
-    else std::cout<<"verylongint3==123456789L"<<std::endl;
+    if(verylongint3>123456789L)cout<<"verylongint3>123456789L"<<endl;
+    else cout<<"verylongint3<=123456789L"<<endl;
+    if(verylongint3<123456789L)cout<<"verylongint3<123456789L"<<endl;
+    else cout<<"verylongint3>=123456789L"<<endl;
+    if(verylongint3>=123456789L)cout<<"verylongint3>=123456789L"<<endl;
+    else cout<<"verylongint3<123456789L"<<endl;
+    if(verylongint3<=123456789L)cout<<"verylongint3<=123456789L"<<endl;
+    else cout<<"verylongint3>123456789L"<<endl;
+    if(verylongint3==123456789L)cout<<"verylongint3==123456789L"<<endl;
+    else cout<<"verylongint3!=123456789L"<<endl;
+    if(verylongint3!=123456789L)cout<<"verylongint3!=123456789L"<<endl;
+    else cout<<"verylongint3==123456789L"<<endl;
 
 
-    std::cout<<"verylongint3+123456789L:"<<verylongint3+"12345678987654321";
-    std::cout<<"verylongint3-123456789L:"<<verylongint3-"12345678987654321";
-    std::cout<<"verylongint3*123456789L:"<<verylongint3*"12345678987654321";
-    std::cout<<"verylongint3/123456789L:"<<verylongint3/"12345678987654321";
-    std::cout<<"verylongint3%123456789L:"<<verylongint3%"12345678987654321";
+    cout<<"verylongint3+123456789L:"<<verylongint3+"12345678987654321";
+    cout<<"verylongint3-123456789L:"<<verylongint3-"12345678987654321";
+    cout<<"verylongint3*123456789L:"<<verylongint3*"12345678987654321";
+    cout<<"verylongint3/123456789L:"<<verylongint3/"12345678987654321";
+    cout<<"verylongint3%123456789L:"<<verylongint3%"12345678987654321";
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3+="12345678987654321";
-    std::cout<<"verylongint3+=123456789L:"<<verylongint3;
+    cout<<"verylongint3+=123456789L:"<<verylongint3;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3-="12345678987654321";
-    std::cout<<"verylongint3-=123456789L:"<<verylongint3;
+    cout<<"verylongint3-=123456789L:"<<verylongint3;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3*="12345678987654321";
-    std::cout<<"verylongint3*=123456789L:"<<verylongint3;
+    cout<<"verylongint3*=123456789L:"<<verylongint3;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3/="12345678987654321";
-    std::cout<<"verylongint3/=123456789L:"<<verylongint3;
+    cout<<"verylongint3/=123456789L:"<<verylongint3;
     verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846");
     verylongint3%="12345678987654321";
-    std::cout<<"verylongint3%=123456789L:"<<verylongint3;
+    cout<<"verylongint3%=123456789L:"<<verylongint3;
 
 
-    if(verylongint3>"12345678987654321")std::cout<<"verylongint3>123456789L"<<std::endl;
-    else std::cout<<"verylongint3<=123456789L"<<std::endl;
-    if(verylongint3<"12345678987654321")std::cout<<"verylongint3<123456789L"<<std::endl;
-    else std::cout<<"verylongint3>=123456789L"<<std::endl;
-    if(verylongint3>="12345678987654321")std::cout<<"verylongint3>=123456789L"<<std::endl;
-    else std::cout<<"verylongint3<123456789L"<<std::endl;
-    if(verylongint3<="12345678987654321")std::cout<<"verylongint3<=123456789L"<<std::endl;
-    else std::cout<<"verylongint3>123456789L"<<std::endl;
+    if(verylongint3>"12345678987654321")cout<<"verylongint3>123456789L"<<endl;
+    else cout<<"verylongint3<=123456789L"<<endl;
+    if(verylongint3<"12345678987654321")cout<<"verylongint3<123456789L"<<endl;
+    else cout<<"verylongint3>=123456789L"<<endl;
+    if(verylongint3>="12345678987654321")cout<<"verylongint3>=123456789L"<<endl;
+    else cout<<"verylongint3<123456789L"<<endl;
+    if(verylongint3<="12345678987654321")cout<<"verylongint3<=123456789L"<<endl;
+    else cout<<"verylongint3>123456789L"<<endl;
 
 
 
     system("pause");
     system("cls");
 
-verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3+=verylongint4; std::cout<<"verylongint3+=verylongint4:"<<verylongint3;
-verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3-=verylongint4; std::cout<<"verylongint3-=verylongint4:"<<verylongint3;
-verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3*=verylongint4; std::cout<<"verylongint3*=verylongint4:"<<verylongint3;
-verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3/=verylongint4; std::cout<<"verylongint3/=verylongint4:"<<verylongint3;
-verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3%=verylongint4; std::cout<<"verylongint3%=verylongint4:"<<verylongint3;
+verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3+=verylongint4; cout<<"verylongint3+=verylongint4:"<<verylongint3;
+verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3-=verylongint4; cout<<"verylongint3-=verylongint4:"<<verylongint3;
+verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3*=verylongint4; cout<<"verylongint3*=verylongint4:"<<verylongint3;
+verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3/=verylongint4; cout<<"verylongint3/=verylongint4:"<<verylongint3;
+verylongint3=VeryLongInt("71628373872638493782649873264792647362482674628347283648764932746298347623487236472384627846"); verylongint3%=verylongint4; cout<<"verylongint3%=verylongint4:"<<verylongint3;
     //任意长整数op长整型
-    std::cout<<"verylongint3+165465196"<<verylongint3+165465196;
-    std::cout<<"verylongint3-165465196:"<<verylongint3-165465196;
-    std::cout<<"verylongint3*165465196:"<<verylongint3*165465196;
-    std::cout<<"verylongint3/165465196:"<<verylongint3/165465196;
-    std::cout<<"verylongint3%165465196:"<<verylongint3%165465196;
+    cout<<"verylongint3+165465196"<<verylongint3+165465196;
+    cout<<"verylongint3-165465196:"<<verylongint3-165465196;
+    cout<<"verylongint3*165465196:"<<verylongint3*165465196;
+    cout<<"verylongint3/165465196:"<<verylongint3/165465196;
+    cout<<"verylongint3%165465196:"<<verylongint3%165465196;
 
 
 
@@ -257,16 +261,16 @@ verylongint3=VeryLongInt("716283738726384937826498732647926473624826746283472836
     VeryLongInt verylongint11(long_int_min);
     VeryLongInt verylongint12("-0o20000000000");
     VeryLongInt verylongint13("-0X80000000");
-    std::cout<<"verylongint5:"<<verylongint5;
-    std::cout<<"verylongint6:"<<verylongint6;
-    std::cout<<"verylongint7:"<<verylongint7;
-    std::cout<<"verylongint8:"<<verylongint8;
-    std::cout<<"verylongint9:"<<verylongint9;
-    std::cout<<"verylongint10:"<<verylongint10;
-    std::cout<<"verylongint11:"<<verylongint11;
-    std::cout<<"verylongint12:"<<verylongint12;
+    cout<<"verylongint5:"<<verylongint5;
+    cout<<"verylongint6:"<<verylongint6;
+    cout<<"verylongint7:"<<verylongint7;
+    cout<<"verylongint8:"<<verylongint8;
+    cout<<"verylongint9:"<<verylongint9;
+    cout<<"verylongint10:"<<verylongint10;
+    cout<<"verylongint11:"<<verylongint11;
+    cout<<"verylongint12:"<<verylongint12;
 //    verylongint12.is_negative();
-    std::cout<<"verylongint13:"<<verylongint13;
+    cout<<"verylongint13:"<<verylongint13;
     system("pause");
     system("cls");
 

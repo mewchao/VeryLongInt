@@ -150,14 +150,14 @@ VeryLongInt::VeryLongInt(std::vector<int> v, bool negative) {
 
 //输出十进制
 void VeryLongInt::print_decimal() {
-    if (negative)std::cout<<"-";
-    std::cout<<"decimal: ";
+    if (negative)cout<<"-";
+    cout<<"decimal: ";
     if (digits.empty()) {
-        std::cout<<"0"<<std::endl;
+        cout<<"0"<<endl;
         return;
     }
     if (negative) {
-        std::cout<<"-";
+        cout<<"-";
     }
 //    350627200407240014 ->size=18%4=2 ->
     int size=digits.size()%4;
@@ -167,20 +167,20 @@ void VeryLongInt::print_decimal() {
             //找到第一次输出空格的位置size
             j=1;
             flag=0;
-            std::cout<<" ";
+            cout<<" ";
         }
-        std::cout<<digits[i];
-        if (j%4==0) std::cout<<" ";
+        cout<<digits[i];
+        if (j%4==0) cout<<" ";
 
     }
-    std::cout<<std::endl;
+    cout<<endl;
 }
 
 
 //输出十六进制
 void VeryLongInt::print_hex() {
-    if (negative)std::cout<<"-";
-    std::cout<<"hex: ";
+    if (negative)cout<<"-";
+    cout<<"hex: ";
     auto number_str=convert_to_decimal(digits);
     std::string hex=convert_base(number_str, 10, 16);
     hex="0X"+hex;
@@ -191,18 +191,18 @@ void VeryLongInt::print_hex() {
             //找到第一次输出空格的位置size
             j=1;
             flag=0;
-            std::cout<<" ";
+            cout<<" ";
         }
-        std::cout<<hex[i];
-        if (j%4==0) std::cout<<" ";
+        cout<<hex[i];
+        if (j%4==0) cout<<" ";
     }
-    std::cout<<std::endl;
+    cout<<endl;
 }
 
 //输出八进制
 void VeryLongInt::print_oct() {
-    if (negative)std::cout<<"-";
-    std::cout<<"oct: ";
+    if (negative)cout<<"-";
+    cout<<"oct: ";
     auto number_str=convert_to_decimal(digits);
     std::string oct=convert_base(number_str, 10, 8);
     oct="0o"+oct;
@@ -213,19 +213,19 @@ void VeryLongInt::print_oct() {
             //找到第一次输出空格的位置size
             j=1;
             flag=0;
-            std::cout<<" ";
+            cout<<" ";
         }
-        std::cout<<oct[i];
-        if (j%4==0) std::cout<<" ";
+        cout<<oct[i];
+        if (j%4==0) cout<<" ";
     }
-    std::cout<<std::endl;
+    cout<<endl;
 }
 
 
 //输出十进制
 void VeryLongInt::print_decimal(std::ostream &os) const {
     if (digits.empty()) {
-        os<<"0"<<std::endl;
+        os<<"0"<<endl;
         return;
     }
     if (negative) {
@@ -244,14 +244,14 @@ void VeryLongInt::print_decimal(std::ostream &os) const {
         os<<digits[i];
         if (j%4==0) os<<" ";
     }
-    os<<std::endl;
+    os<<endl;
 }
 
 
 //输出十六进制
 void VeryLongInt::print_hex(std::ostream &os) const {
     if (digits.empty()) {
-        os<<"0x0"<<std::endl;
+        os<<"0x0"<<endl;
         return;
     }
     if (negative) {
@@ -272,14 +272,14 @@ void VeryLongInt::print_hex(std::ostream &os) const {
         os<<hex[i];
         if (j%4==0) os<<" ";
     }
-    os<<std::endl;
+    os<<endl;
 }
 
 
 //输出八进制
 void VeryLongInt::print_oct(std::ostream &os) const {
     if (digits.empty()) {
-        os<<"0o0"<<std::endl;
+        os<<"0o0"<<endl;
         return;
     }
     if (negative) {
@@ -300,7 +300,7 @@ void VeryLongInt::print_oct(std::ostream &os) const {
         os<<oct[i];
         if (j%4==0) os<<" ";
     }
-    os<<std::endl;
+    os<<endl;
 }
 
 
@@ -309,7 +309,7 @@ std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
     //Windows API中的SetConsoleTextAttribute函数来设置输出颜色。
     //具体来说，GetStdHandle(STD_OUTPUT_HANDLE)获取标准输出句柄，然后将其传递给SetConsoleTextAttribute函数以设置输出颜色。
     HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
-    os<<std::endl;
+    os<<endl;
     SetConsoleTextAttribute(hConsole, 15);
     os<<"decimal: ";
     SetConsoleTextAttribute(hConsole, 2);
@@ -323,7 +323,7 @@ std::ostream &operator<<(std::ostream &os, const VeryLongInt &num) {
     SetConsoleTextAttribute(hConsole, 3);
     num.print_hex(os);
     SetConsoleTextAttribute(hConsole, 4);
-    os<<std::endl;
+    os<<endl;
     return os;
 };
 
@@ -346,6 +346,17 @@ VeryLongInt VeryLongInt::operator-() const {
 VeryLongInt VeryLongInt::Negative() const {
     return VeryLongInt(digits, !negative);
 }
+
+
+int VeryLongInt::get_length() const{
+    return this->digits.size();
+}
+
+
+int  VeryLongInt::operator[](int num) const{
+    return this->digits[digits.size()-num-1];
+}
+
 
 //============================================任意长整数类op任意长整数类==============================
 VeryLongInt VeryLongInt::operator=(VeryLongInt other) {
@@ -943,10 +954,10 @@ bool VeryLongInt::operator<=(const std::string &other) const{
 void show_copyright() {
     HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 4);
-    std::cout<<std::endl<<"    ---Copyright---(c++) 2023-2023 游竣超(222200231). All Rights Reserved.---    ";
-    std::cout<<std::endl;
+    cout<<endl<<"    ---Copyright---(c++) 2023-2023 游竣超(222200231). All Rights Reserved.---    ";
+    cout<<endl;
     show_time();
-    std::cout<<std::endl;
+    cout<<endl;
 }
 
 void show_time() {
@@ -955,8 +966,8 @@ void show_time() {
     GetLocalTime(&now2);
     time_t now=time(0);
     tm *ltm=localtime(&now);
-    std::cout<<std::endl<<"        当前日期、时间 :"<<ltm->tm_year+1900<<"."<<1+ltm->tm_mon<<"."
+    cout<<endl<<"        当前日期、时间 :"<<ltm->tm_year+1900<<"."<<1+ltm->tm_mon<<"."
              <<ltm->tm_mday<<" "<<ltm->tm_hour
-             <<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<"("<<week[now2.wDayOfWeek]<<") "<<std::endl;
+             <<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<"("<<week[now2.wDayOfWeek]<<") "<<endl;
 }
 //===========================================================字符版权函数结束===========================================================
